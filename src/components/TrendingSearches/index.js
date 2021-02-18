@@ -14,13 +14,13 @@ const TrendingSearches = React.lazy(
 //sino que se hace mientras vas scroleando y te "acercas" al lugar donde se va a necesitar ese llamado
 export default function LazyTrendingSearches() {
     
-    const fromRef = useRef()
+    const externalRef = useRef()
     
-    const isNearScreen = useNearScreen({fromRef})
+    const isNearScreen = useNearScreen({externalRef})
     
     
-    return <div ref={fromRef}>
-        {/* este Esta cargando... j0 solo va a aparecer hasta que se renderice el elemento
+    return <div ref={externalRef}>
+        {/* este "Esta cargando... j0" solo va a aparecer hasta que se renderice el elemento
         //al ser un llamado bastante rapido es por eso que en el codigo ni lo lleguemos a ver y 
         // ya veamos cargadas las tendencias de busqueda */}
         

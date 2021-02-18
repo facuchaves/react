@@ -4,24 +4,26 @@ import GifsContext from '../context/GifsContext'
 
 const INITIAL_PAGE = 0
 
+//custom hook que lo uso para el manejo de gifs, seteo de gifs, paginado
+//uso el gifsContext para guardar de forma global los gifs
 export const useGifs = ({ keyWordInput } = {keyWordInput: null}) => {
     
     const [loading, setLoading] = useState(false)
     const [loadingNextPage, setLoadingNextPage] = useState(false)
+
+    //estas serian variables globales (para eso se usa el usecontext)
     const {gifs, setGifs} = useContext(GifsContext)
+
     const [page, setPage] = useState(INITIAL_PAGE)
     
     // recuperamos la keyword del localStorage
     const keyWordToUse = keyWordInput || localStorage.getItem('lastKeyWord')
 
-    //Si dejo la lista vacia solo se renderiza 1 vez
+    //Si dejo la lista vacia del useEffect solo se renderiza 1 vez
     useEffect(function() {
       console.log("useEffect ejecutado de useGifs (custom Hook)")
     
       setLoading(true)
-
-      
-
       
       getGifs({ keyWord: keyWordToUse})
         .then(gifs => {
@@ -34,6 +36,7 @@ export const useGifs = ({ keyWordInput } = {keyWordInput: null}) => {
     }, [keyWordInput, keyWordToUse, setGifs])
 
 
+    //este useEffect es para el paginado / scroll infinito
     useEffect(() => {
       if (page === INITIAL_PAGE){
         return
@@ -43,7 +46,7 @@ export const useGifs = ({ keyWordInput } = {keyWordInput: null}) => {
       getGifs({ keyWord: keyWordToUse, page: page})
         .then(nextGifs => {
           setGifs(prevGifs => prevGifs.concat(nextGifs))
-          setLoadingNextPage(true)
+          setLoadingNextPage(false)
         })
     }, [keyWordToUse, page, setGifs])
 

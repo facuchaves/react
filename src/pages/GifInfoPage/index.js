@@ -1,19 +1,19 @@
 import React, {useState, useEffect, useContext} from 'react'
+import GifInfo from '../../components/GifInfo/GifInfo'
 import StaticContext from '../../context/StaticContex'
-import GifInfo from '../../components/GifInfo'
 import useGlobalGifs from '../../hooks/useGlobalGifs'
 import { getGifInfo } from '../../services/getGifs'
 
 export const GifInfoPage = ({ params }) => {
 
-    //usando use context para valor globales
+    //usando use context para valores globales
     const contextGuardado = useContext(StaticContext)
-    console.log(contextGuardado)
+    console.log("contextGuardado", contextGuardado)
 
 
-    //usando use context para valor globales donde guardamos todos los gifs
+    //usando use context para valores globales aca guardamos todos los gifs
     const gifs = useGlobalGifs()
-    console.log(gifs)
+    console.log("gifs", gifs)
 
 
     const { keyWordInput } = params

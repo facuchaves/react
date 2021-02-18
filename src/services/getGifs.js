@@ -2,7 +2,7 @@ import {API_KEY} from './settings'
 import {API_URL} from './settings'
 
 
-export const getGifs = ({ keyWord= 'cats', limit = 3, page = 0 } = {}) => {
+export const getGifs = ({ keyWord= 'cats', limit = 10, page = 0 } = {}) => {
 
     const apiGifURL = `${API_URL}/gifs/search?api_key=${API_KEY}&q=${keyWord}&limit=${limit}&offset=${page * limit}&rating=g&lang=en`
     
