@@ -21,6 +21,10 @@ export const GifInfoPage = ({ params }) => {
     //custom hook que creé para dejar mas ordenada esta pagina (GifInfoPage)
     const gifInfo = useGifInfo(keyWordInput)
 
+    
+    console.log("gifInfo")
+
+
     return (
         <>
         <GifInfo gifInfo={gifInfo} />
