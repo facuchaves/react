@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'wouter'
 import ListOfGifs from '../../components/ListOfGifs/ListOfGifs'
 import LazyTrendingSearches from '../../components/TrendingSearches'
@@ -6,34 +6,36 @@ import { useGifs } from '../../hooks/useGifs'
 import useNearScreen from '../../hooks/useNearScreen'
 import debounce from 'just-debounce-it'
 import './Home.css'
+import SearchFormHome from '../../components/SearchForm'
 
 export const Home = () => {
 
-    const [searchInput, setSearchInput] = useState('')
     
-    const [path, pushLocation] = useLocation()
+    const [pushLocation] = useLocation()
 
     //hook que creamos nosotros (custom hook)
     const {loading, gifs, setPage} = useGifs()
 
 
-    const manejarSubmit = event => {
-        //evito que no se refresque la pantalla
-        event.preventDefault()
 
-        //navegar a otra ruta
-        pushLocation(`/gif/${searchInput}`)
-    }
+    const manejarSubmitFromHome = useCallback((
+        searchInput) => {
+            //navegar a otra ruta
+            pushLocation(`/gif/${searchInput}`)
+        }
+    ,[pushLocation])
 
-    const manejarChange  = event => {
-        setSearchInput(event.target.value)
-    }
 
+
+
+    //#########################################
+    //  LOGICA INFINITE SCROLL
+    //#########################################
 
     const externalRef = useRef()
 
+    //aca lo usamos para hacer el scroll infinito
     const isNearScreen = useNearScreen({externalRef: loading ? null : externalRef, once: false})
-
 
     const handleNextPage = () => {
         console.log("proxima pagina!")
@@ -43,11 +45,14 @@ export const Home = () => {
     //el useCallback lo usamos para que "guarde" una funcion y no se vuelva a crear cada vez que se renderice la pagina
     // de la misma forma que el useEffect solo se ejecutará una vez si no tienen ningun parametro en los corchetes []
     // idem useEffect se volvera a crear cada vez que algun valor de los corchetes cambie
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const debounceHandleNextPage = useCallback(
         //el debounce lo tuve que instalar y funciona para que no se pueda cargar muchas veces si no que genere un delay
+        //cuando se hace muchas veces click
         debounce(
             () => handleNextPage(), 200)
-        ,[])
+        ,[]
+    )
 
     useEffect(() => {
 
@@ -56,12 +61,15 @@ export const Home = () => {
         }
     }, [debounceHandleNextPage, isNearScreen])
 
+
+    //#########################################
+    //  FIN DE LOGICA INFINITE SCROLL
+    //#########################################
+
+    
     return (
         <>
-            <form onSubmit={manejarSubmit}>
-                <input placeholder='Ingresá un texto...' type='text' onChange={manejarChange} value={searchInput} />
-                <button>Buscar</button>
-            </form>
+            <SearchFormHome manejarSubmitFromHome={manejarSubmitFromHome}/>
 
             <h3>Gifs mas populares</h3>
 
@@ -73,7 +81,6 @@ export const Home = () => {
 
             <LazyTrendingSearches />
             
-            <h5>Ultima Busqueda</h5>
             <ListOfGifs gifs={gifs} />
             
 

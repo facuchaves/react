@@ -12,6 +12,7 @@ function App() {
   
 
   return (
+    //objeto de static context creado para usar las variables globales en toda la app
     <StaticContex.Provider value={{
       name: 'Lucas',
       lastName: 'Csulak',
@@ -22,6 +23,9 @@ function App() {
         <section className="App-content">
           <Link to='/'>HOME de GIFS</Link>
 
+          {/* objeto de static context creado para usar las variables globales en toda la app
+              tener en cuenta que tiene que "envolver" los componentes donde voy a querer consumirlo
+          */}
           <GifsContextProvider>
 
             <Route

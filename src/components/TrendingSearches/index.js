@@ -22,7 +22,9 @@ export default function LazyTrendingSearches() {
     return <div ref={externalRef}>
         {/* este "Esta cargando... j0" solo va a aparecer hasta que se renderice el elemento
         //al ser un llamado bastante rapido es por eso que en el codigo ni lo lleguemos a ver y 
-        // ya veamos cargadas las tendencias de busqueda */}
+        // ya veamos cargadas las tendencias de busqueda 
+        FORMA DE VERLO: En la consola del navegador, pestaña network, pestaña Online elegir opcion Slow 3g y recargar la pagina
+        */}
         
         {/* el Suspense se debera usar siempre que usemos el concepto de lazy load. leer todo este doc para entender este comentario */}
         <Suspense fallback={'Esta cargando... j0'}>

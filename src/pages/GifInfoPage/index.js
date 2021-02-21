@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useContext} from 'react'
 import GifInfo from '../../components/GifInfo/GifInfo'
 import StaticContext from '../../context/StaticContex'
+import useGifInfo from '../../hooks/useGifInfo'
 import useGlobalGifs from '../../hooks/useGlobalGifs'
-import { getGifInfo } from '../../services/getGifs'
 
 export const GifInfoPage = ({ params }) => {
 
@@ -18,18 +18,13 @@ export const GifInfoPage = ({ params }) => {
 
     const { keyWordInput } = params
 
-    const [gifInfo, setGifInfo] = useState({})
-
-    useEffect(function() {
-        console.log("useEffect ejecutado de gifinfo page")
-        
-        getGifInfo({ gifId: keyWordInput }).then(gifInformation => setGifInfo(gifInformation))  
-      }, [])
-
+    //custom hook que creé para dejar mas ordenada esta pagina (GifInfoPage)
+    const gifInfo = useGifInfo(keyWordInput)
 
     return (
         <>
         <GifInfo gifInfo={gifInfo} />
+
         <div> Solo para practicar:</div>
         <div> Info recuperada del context</div>
         <ul>

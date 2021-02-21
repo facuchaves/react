@@ -5,6 +5,9 @@ import './ListOfGifs.css'
 export default function ListOfGifs({ gifs }) {
 
   return (
+    <>
+      <h5>Ultima Busqueda</h5>
+      
       <div className='ListOfGifs'>
         {
           gifs.map(({id, title, img_url }) => {
@@ -15,9 +18,10 @@ export default function ListOfGifs({ gifs }) {
             img_url={img_url}
             />        
           }) 
-
+          
         }
       </div>
+        </>
 
   )   
 }

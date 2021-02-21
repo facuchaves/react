@@ -1,0 +1,22 @@
+npm create react app "nombre app" 
+
+esto use para crear la app
+
+despues para levantar el proyecto
+
+yarn start
+
+
+
+
+
+LIBS QUE INSTALE
+
+npm install @emotion/core
+npm install @emotion/react
+npm install @emotion/styled
+
+npm install wouter
+npm install intersection-observer
+npm install just-debounce-it
+npm install vercel -g
