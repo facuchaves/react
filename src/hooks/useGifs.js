@@ -1,54 +1,53 @@
-import {useContext, useEffect, useState} from 'react'
-import {getGifs} from '../services/getGifs'
-import GifsContext from '../context/GifsContext'
+import { useContext, useEffect, useState } from "react";
+import { getGifs } from "../services/getGifs";
+import GifsContext from "../context/GifsContext";
 
-const INITIAL_PAGE = 0
+const INITIAL_PAGE = 0;
 
 //custom hook que lo uso para el manejo de gifs, seteo de gifs, paginado
 //uso el gifsContext para guardar de forma global los gifs
-export const useGifs = ({ keyWordInput } = {keyWordInput: null}) => {
-    
-    const [loading, setLoading] = useState(false)
-    const [loadingNextPage, setLoadingNextPage] = useState(false)
+export const useGifs = ({ keyWordInput, rating } = { keyWordInput: null }) => {
+  const [loading, setLoading] = useState(false);
+  const [loadingNextPage, setLoadingNextPage] = useState(false);
 
-    //estas serian variables globales (para eso se usa el usecontext)
-    const {gifs, setGifs} = useContext(GifsContext)
+  //estas serian variables globales (para eso se usa el usecontext)
+  const { gifs, setGifs } = useContext(GifsContext);
 
-    const [page, setPage] = useState(INITIAL_PAGE)
-    
-    // recuperamos la keyword del localStorage
-    const keyWordToUse = keyWordInput || localStorage.getItem('lastKeyWord')
+  const [page, setPage] = useState(INITIAL_PAGE);
 
-    //Si dejo la lista vacia del useEffect solo se renderiza 1 vez
-    useEffect(function() {
-      console.log("useEffect ejecutado de useGifs (custom Hook)")
-    
-      setLoading(true)
-      
-      getGifs({ keyWord: keyWordToUse})
-        .then(gifs => {
-          setGifs(gifs)
-          setLoading(false)
+  // recuperamos la keyword del localStorage
+  const keyWordToUse = keyWordInput || localStorage.getItem("lastKeyWord");
 
-          //guardamos la keyword en el localStorage
-          localStorage.setItem('lastKeyWord', keyWordInput)
-      })    
-    }, [keyWordInput, keyWordToUse, setGifs])
+  //Si dejo la lista vacia del useEffect solo se renderiza 1 vez
+  useEffect(
+    function () {
+      console.log("useEffect ejecutado de useGifs (custom Hook)");
 
+      setLoading(true);
 
-    //este useEffect es para el paginado / scroll infinito
-    useEffect(() => {
-      if (page === INITIAL_PAGE){
-        return
-      } 
+      getGifs({ keyWord: keyWordToUse, rating }).then((gifs) => {
+        setGifs(gifs);
+        setLoading(false);
 
-      setLoadingNextPage(true)
-      getGifs({ keyWord: keyWordToUse, page: page})
-        .then(nextGifs => {
-          setGifs(prevGifs => prevGifs.concat(nextGifs))
-          setLoadingNextPage(false)
-        })
-    }, [keyWordToUse, page, setGifs])
+        //guardamos la keyword en el localStorage
+        localStorage.setItem("lastKeyWord", keyWordInput);
+      });
+    },
+    [keyWordInput, keyWordToUse, setGifs, rating]
+  );
 
-    return {loading, gifs, setPage, loadingNextPage}
-}
+  //este useEffect es para el paginado / scroll infinito
+  useEffect(() => {
+    if (page === INITIAL_PAGE) {
+      return;
+    }
+
+    setLoadingNextPage(true);
+    getGifs({ keyWord: keyWordToUse, page: page, rating }).then((nextGifs) => {
+      setGifs((prevGifs) => prevGifs.concat(nextGifs));
+      setLoadingNextPage(false);
+    });
+  }, [keyWordToUse, page, rating, setGifs]);
+
+  return { loading, gifs, setPage, loadingNextPage };
+};
