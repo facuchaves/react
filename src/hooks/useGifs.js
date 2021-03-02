@@ -6,7 +6,9 @@ const INITIAL_PAGE = 0;
 
 //custom hook que lo uso para el manejo de gifs, seteo de gifs, paginado
 //uso el gifsContext para guardar de forma global los gifs
-export const useGifs = ({ keyWordInput, rating } = { keyWordInput: null }) => {
+export const useGifs = (
+  { keyWordInput, rating } = { keyWordInput: null, rating: "g" }
+) => {
   const [loading, setLoading] = useState(false);
   const [loadingNextPage, setLoadingNextPage] = useState(false);
 
@@ -29,8 +31,8 @@ export const useGifs = ({ keyWordInput, rating } = { keyWordInput: null }) => {
         setGifs(gifs);
         setLoading(false);
 
-        //guardamos la keyword en el localStorage
-        localStorage.setItem("lastKeyWord", keyWordInput);
+        //guardamos la keyWordToUse en el localStorage
+        localStorage.setItem("lastKeyWord", keyWordToUse);
       });
     },
     [keyWordInput, keyWordToUse, setGifs, rating]
@@ -41,7 +43,6 @@ export const useGifs = ({ keyWordInput, rating } = { keyWordInput: null }) => {
     if (page === INITIAL_PAGE) {
       return;
     }
-
     setLoadingNextPage(true);
     getGifs({ keyWord: keyWordToUse, page: page, rating }).then((nextGifs) => {
       setGifs((prevGifs) => prevGifs.concat(nextGifs));

@@ -3,7 +3,7 @@ import { useLocation } from "wouter";
 
 const RATINGS = ["g", "pg", "pg-13", "r"];
 
-const SearchFormHome = ({ initialKeyword = "", initialRating }) => {
+const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
   const [path, pushLocation] = useLocation();
 
   const [searchInput, setSearchInput] = useState(

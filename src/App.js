@@ -28,13 +28,13 @@ function App() {
             <Route component={Home} path="/" />
 
             <Route
-              component={ListOfGifsPage}
               //si vamos al componente ListOfGifsPage vemos que por los "params" recuperamos los valores de la url para "keyWordInput" y "rating"
               //aca al path le agregue el ? porque si no enviamos el rating solo toma hasta el keyWordInput
+              component={ListOfGifsPage}
               path="/gif/:keyWordInput/:rating?"
             />
 
-            <Route component={GifInfoPage} path="/gif/info/:keyWordInput" />
+            <Route component={GifInfoPage} path="/gif-info/:keyWordInput" />
           </GifsContextProvider>
         </section>
       </div>
