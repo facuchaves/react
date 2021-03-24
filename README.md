@@ -4,7 +4,7 @@
 
 ![Exercise - Animated gif demo](demo.gif)
 
-Contenido:
+Content:
 
 - [Activity](#activity)
 - [Run Project](#run-project)
