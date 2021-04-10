@@ -1,15 +1,22 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useLocation } from "wouter";
-
+import useForm from "./hook";
 const RATINGS = ["g", "pg", "pg-13", "r"];
 
 const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
   const [path, pushLocation] = useLocation();
 
-  const [searchInput, setSearchInput] = useState(
-    decodeURIComponent(initialKeyword)
-  );
-  const [rating, setRating] = useState(initialRating);
+  // estos valores los recupero del state del reducer
+  const {
+    searchInput,
+    rating,
+    times,
+    updateSearchInput,
+    updateRating,
+  } = useForm({
+    initialKeyword,
+    initialRating,
+  });
 
   const manejarSubmit = useCallback(
     (event) => {
@@ -22,12 +29,14 @@ const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
     [pushLocation, rating, searchInput]
   );
 
-  const manejarChange = (event) => {
-    setSearchInput(event.target.value);
+  const manejarSearchInput = (event) => {
+    updateSearchInput(event.target.value);
   };
 
   const manejarRating = (event) => {
-    setRating(event.target.value);
+    //setRating(event.target.value);
+
+    updateRating(event.target.value);
   };
 
   return (
@@ -35,7 +44,7 @@ const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
       <input
         placeholder="Ingresá un texto..."
         type="text"
-        onChange={manejarChange}
+        onChange={manejarSearchInput}
         value={searchInput}
       />
 
@@ -47,6 +56,7 @@ const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
       </select>
 
       <button>Buscar</button>
+      <small>{times}</small>
     </form>
   );
 };
