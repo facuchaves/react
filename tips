@@ -20,3 +20,9 @@ npm install wouter
 npm install intersection-observer
 npm install just-debounce-it
 npm install vercel -g
+
+
+
+para el branch reducer-with-redux
+npm i redux react-redux
+

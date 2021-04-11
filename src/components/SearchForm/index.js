@@ -1,22 +1,18 @@
 import React, { useCallback } from "react";
 import { useLocation } from "wouter";
-import useForm from "./hook";
+import { useSelector, useDispatch } from "react-redux";
+import { updateSearchInput, updateRating } from "../../redux/actions";
 const RATINGS = ["g", "pg", "pg-13", "r"];
 
-const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
+const SearchFormHome = () => {
   const [path, pushLocation] = useLocation();
 
-  // estos valores los recupero del state del reducer
-  const {
-    searchInput,
-    rating,
-    times,
-    updateSearchInput,
-    updateRating,
-  } = useForm({
-    initialKeyword,
-    initialRating,
-  });
+  const rating = useSelector((state) => state.rat);
+  const input = useSelector((state) => state.inp);
+  const dispatch = useDispatch();
+
+  console.log({ rating });
+  console.log({ input });
 
   const manejarSubmit = useCallback(
     (event) => {
@@ -24,19 +20,25 @@ const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
       event.preventDefault();
 
       //navegar a otra ruta
-      pushLocation(`/gif/${searchInput}/${rating}`);
+      pushLocation(`/gif/${input.searchInput}/${rating.rating}`);
     },
-    [pushLocation, rating, searchInput]
+    [pushLocation, rating.rating, input.searchInput]
   );
 
   const manejarSearchInput = (event) => {
-    updateSearchInput(event.target.value);
+    //with redux!
+    //this is only as an example, because is not a good idea call the dispatch in every single change.
+    //The correct way shuld be calling the dispatch when the user submi the form (manejarSubmit).
+    // And here (manejarSerchInput) could be updating a local hook
+
+    //(obviously this is only to learn about redux, because with a local hook on this component is gonna work perfectly)
+    dispatch(updateSearchInput(event.target.value));
   };
 
   const manejarRating = (event) => {
-    //setRating(event.target.value);
-
-    updateRating(event.target.value);
+    //with redux!
+    // Here same good practice to manejarSearchInput
+    dispatch(updateRating(event.target.value));
   };
 
   return (
@@ -45,10 +47,10 @@ const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
         placeholder="Ingresá un texto..."
         type="text"
         onChange={manejarSearchInput}
-        value={searchInput}
+        value={input.searchInput}
       />
 
-      <select onChange={manejarRating} value={rating}>
+      <select onChange={manejarRating} value={rating.rating}>
         <option disabled>Rating type</option>
         {RATINGS.map((rating) => (
           <option key={rating}>{rating}</option>
@@ -56,7 +58,7 @@ const SearchFormHome = ({ initialKeyword = "", initialRating = "g" }) => {
       </select>
 
       <button>Buscar</button>
-      <small>{times}</small>
+      <small>{input.times}</small>
     </form>
   );
 };
