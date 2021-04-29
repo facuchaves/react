@@ -1,14 +1,11 @@
 import React from "react";
 import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid';
+import { getPlayers } from "../../services/playersService";
 
 export const PlayersPage = ({ props }) => {
   //const { someAttributeFromProps } = props;
 
-  const rows/*: GridRowsProp*/ = [
-    { id: 1, playerNameCol: 'Jugador 1', playerScoreCol: 'Score 1' },
-    { id: 2, playerNameCol: 'Jugador 2', playerScoreCol: 'Score 2' },
-    { id: 3, playerNameCol: 'Jugador 3', playerScoreCol: 'Score 3' },
-  ];
+  const rows/*: GridRowsProp*/ = getPlayers();
 
   const columns/*: GridColDef[]*/ = [
     { field: 'playerNameCol', headerName: 'Player Name', width: 150 },
