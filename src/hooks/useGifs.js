@@ -39,7 +39,7 @@ export const useGifs = (
   );
 
   //este useEffect es para el paginado / scroll infinito
-  useEffect(() => {
+  /* useEffect(() => {
     if (page === INITIAL_PAGE) {
       return;
     }
@@ -49,6 +49,6 @@ export const useGifs = (
       setLoadingNextPage(false);
     });
   }, [keyWordToUse, page, rating, setGifs]);
-
+ */
   return { loading, gifs, setPage, loadingNextPage };
 };

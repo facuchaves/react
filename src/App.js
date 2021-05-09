@@ -7,6 +7,7 @@ import { ListOfGifsPage } from "./pages/ListOfGifsPage";
 import { PlayersPage } from "./pages/playersPage";
 import StaticContex from "./context/StaticContex";
 import { GifsContextProvider } from "./context/GifsContext";
+import { PlayersContextProvider } from "./context/PlayersContext";
 import { AppBar , Toolbar , IconButton , Typography, Button , BottomNavigation , BottomNavigationAction } from '@material-ui/core';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -50,13 +51,16 @@ function App() {
               path="/gif/:keyWordInput/:rating?"
             />
 
+            <Route component={GifInfoPage} path="/gif-info/:keyWordInput" />
+          </GifsContextProvider>
+          
+          <PlayersContextProvider>
             <Route
               component={PlayersPage}
               path="/players"
             />
-            
-            <Route component={GifInfoPage} path="/gif-info/:keyWordInput" />
-          </GifsContextProvider>
+          </PlayersContextProvider>
+          
         </section>
         <section>
           <BottomNavigation>
