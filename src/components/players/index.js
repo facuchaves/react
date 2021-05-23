@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles({
   root: {
@@ -24,6 +25,8 @@ const useStyles = makeStyles({
 });
 
 export default function SimpleCard(props) {
+  const { t } = useTranslation();
+
   const { player }  = props
   
   const classes = useStyles();
@@ -37,7 +40,7 @@ export default function SimpleCard(props) {
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Player Info
+          {t('player.info')}
         </Typography>
         <Typography variant="h5" component="h2">
           Player ID: {bull} {player?.id} {bull}
