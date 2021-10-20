@@ -12,8 +12,11 @@ import { AppBar , Toolbar , IconButton , Typography, Button , BottomNavigation ,
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     //objeto de static context creado para usar las variables globales en toda la app
     <StaticContex.Provider
@@ -30,9 +33,9 @@ function App() {
               <IconButton edge="start" color="inherit" aria-label="menu">
               </IconButton>
               <Typography variant="h6" >
-                News
+                {t('common.news')}
               </Typography>
-              <Button color="inherit">Login</Button>
+              <Button color="inherit">{t('common.login')}</Button>
             </Toolbar>
           </AppBar>
         </section>

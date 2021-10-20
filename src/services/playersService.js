@@ -1,6 +1,8 @@
+require('dotenv').config()
+
 export const getPlayers = async () => {
 
-  const urlGetPlayers = `http://localhost:5000/api/players`;
+  const urlGetPlayers = process.env.REACT_APP_BASE_URL_APIREST + '/api/resource';
   
   return fetch(urlGetPlayers)
   .then( res => res.json() )

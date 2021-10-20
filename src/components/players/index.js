@@ -43,17 +43,17 @@ export default function SimpleCard(props) {
           {t('player.info')}
         </Typography>
         <Typography variant="h5" component="h2">
-          Player ID: {bull} {player?.id} {bull}
+          {t('player.id')} : {bull} {player?.id} {bull}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          Name : {player?.playerNameCol}
+          {t('player.name')} : {player?.playerNameCol}
         </Typography>
         <Typography variant="body2" component="p">
-          Score : {player?.playerScoreCol}
+          {t('player.score')} : {player?.playerScoreCol}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => consolePlayer(player)}>Log Player in console</Button>
+        <Button size="small" onClick={() => consolePlayer(player)}> {t('player.logConsole')} </Button>
       </CardActions>
     </Card>
   );
