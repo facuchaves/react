@@ -13,6 +13,10 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTranslation } from "react-i18next";
+import { withAuthenticator } from 'aws-amplify-react'
+import Amplify, { Auth } from 'aws-amplify';
+import aws_exports from './aws-exports';
+Amplify.configure(aws_exports);
 
 function App() {
   const { t } = useTranslation();
@@ -78,4 +82,5 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App, true);
+// export default App;
