@@ -53,5 +53,8 @@
   },
   "devDependencies": {
     "cypress": "^8.6.0"
+  },
+  "resolutions": {
+    "mkdirp": "^1.0.4"
   }
 }
