@@ -53,5 +53,8 @@
   },
   "devDependencies": {
     "cypress": "^8.6.0"
+  },
+  "resolutions": {
+    "ua-parser-js": "^1.0.1"
   }
 }
