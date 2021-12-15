@@ -1,0 +1,129 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2021-12-15T19:22:53.608Z",
+    "end": "2021-12-15T19:22:55.584Z",
+    "duration": 1976,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "fb4c8270-4843-4160-ba89-2306c36343ca",
+      "title": "",
+      "fullFile": "cypress/integration/simple-first.spec.js",
+      "file": "cypress/integration/simple-first.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ef1340cb-5785-4b88-901c-387c878ad78f",
+          "title": "Simple first test:",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "52a51fbb-5110-4661-a9af-1e1bcef1e92e",
+              "title": "Load page:",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "button with text",
+                  "fullTitle": "Simple first test: Load page: button with text",
+                  "timedOut": null,
+                  "duration": 1896,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "// Step 2: Take an action (Sign in)\n// cy.get(selectors.usernameInput).type(\"DUMMY_USERNAME\");\n// cy.get(selectors.signInPasswordInput).type(\"DUMMY_PASSWORD\");\n// cy.get(selectors.signInSignInButton).contains('Sign In').click();\n// cy.get(selectors.googleButton).contains('Sign In').click();\n// Step 3: Make an assertion (Check for sign-out text)\n//   cy.get(selectors.signOutButton).contains('Sign Out');\ncy.title().contains('Google');",
+                  "err": {
+                    "message": "CypressError: `cy.contains()` failed because it requires the subject be a global `window` object.\n\nThe subject received was:\n\n  > `Google`\n\nThe previous command that ran was:\n\n  > `cy.title()`\n\nAll 3 subject validations failed on this subject.",
+                    "estack": "CypressError: `cy.contains()` failed because it requires the subject be a global `window` object.\n\nThe subject received was:\n\n  > `Google`\n\nThe previous command that ran was:\n\n  > `cy.title()`\n\nAll 3 subject validations failed on this subject.\n    at ensureWindow (https://www.google.com.ar/__cypress/runner/cypress_runner.js:160566:85)\n    at validateType (https://www.google.com.ar/__cypress/runner/cypress_runner.js:160395:18)\n    at Object.ensureSubjectByType (https://www.google.com.ar/__cypress/runner/cypress_runner.js:160425:11)\n    at pushSubjectAndValidate (https://www.google.com.ar/__cypress/runner/cypress_runner.js:169531:17)\n    at Context.<anonymous> (https://www.google.com.ar/__cypress/runner/cypress_runner.js:169860:20)\nFrom Your Spec Code:\n    at Context.eval (https://www.google.com.ar/__cypress/tests?p=cypress/integration/simple-first.spec.js:123:18)",
+                    "diff": null
+                  },
+                  "uuid": "1bcf5505-4c7f-4b74-867c-8122f6cfa03b",
+                  "parentUUID": "52a51fbb-5110-4661-a9af-1e1bcef1e92e",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "1bcf5505-4c7f-4b74-867c-8122f6cfa03b"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 1896,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.0.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/report/mochawesome-report",
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "6.0.1"
+    }
+  }
+}

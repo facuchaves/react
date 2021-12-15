@@ -22,7 +22,7 @@ describe('Simple first test:', function() {
 
         // Step 3: Make an assertion (Check for sign-out text)
         //   cy.get(selectors.signOutButton).contains('Sign Out');
-        cy.get(selectors.divWithArgentinaText).contains('Argentina');
+        cy.title().should('eq','Google');
 
       });
     });
