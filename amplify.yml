@@ -31,6 +31,7 @@ test:
     preTest:
       commands:
         - npm install
+        - npm ci
     test:
       commands:
         - npm install
