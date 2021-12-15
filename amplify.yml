@@ -28,9 +28,12 @@ test:
       - "**/*.png"
       - "**/*.mp4"
   phases:
+    preTest:
+      commands:
+        - npm install
     test:
       commands:
-        - yarn install
+        - npm install
         - "yarn cy:run-ct"
         - 'npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/report/mochawesome-report,overwrite=false,html=false,json=true,timestamp=mmddyyyy_HHMMss"'
     postTest:
