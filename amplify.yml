@@ -30,7 +30,7 @@ test:
   phases:
     preTest:
       commands:
-        - npm ci
+        - npm install
         - npm install -g pm2
         - npm install -g wait-on
         - npx pm2 start npm -- start
