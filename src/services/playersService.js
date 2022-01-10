@@ -6,6 +6,6 @@ export const getPlayers = async () => {
   
   return fetch(urlGetPlayers)
   .then( res => res.json() )
-  .then( resJson => resJson.map( player => ({ id: player.id, playerNameCol: player.name, playerScoreCol: player.score })) )
+  .then( resJson => resJson.map( player => ({ id: player.entity_id, playerNameCol: player.name, playerScoreCol: player.score })) )
 
 };
