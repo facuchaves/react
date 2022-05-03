@@ -52,7 +52,10 @@ export const IssuesPage = ({ props }) => {
 
   const {loading, error, data} = useQuery(ISSUES);
 
-  const rows = data?.repository.issues.edges.map( edge => ({ id: edge.node.number, issueTitleCol: edge.node.title }) ) || [{ id: 1, issueTitleCol: 'edge.node.title' }];
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  const rows = data.repository.issues.edges.map( edge => ({ id: edge.node.number, issueTitleCol: edge.node.title }) );
   
   const columns/*: GridColDef[]*/ = [
     { field: 'issueTitleCol', headerName: t('issue.title'), width: 150 },
