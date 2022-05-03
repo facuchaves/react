@@ -7,7 +7,7 @@ import { clickPlayer } from "../../redux/actions";
 import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
 
-export const IssuesPage = ({ props }) => {
+export const IssuePage = ({ props }) => {
   const { t } = useTranslation();
 
   //const { someAttributeFromProps } = props;
@@ -63,7 +63,7 @@ export const IssuesPage = ({ props }) => {
 
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
+      <SimpleCard issue={rows[0]}></SimpleCard>
     </div>
   );
 
@@ -71,4 +71,4 @@ export const IssuesPage = ({ props }) => {
 
 const stateIssue = (state) => ({ isClicked: state.isClicked })
 
-export default connect(stateIssue)(IssuesPage);
+export default connect(stateIssue)(IssuePage);
