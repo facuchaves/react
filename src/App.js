@@ -11,7 +11,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTranslation } from "react-i18next";
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
-import issuePage from "./pages/issuePage";
+import { IssuePage } from "./pages/issuePage";
 Amplify.configure(aws_exports);
 
 function App() {
@@ -50,12 +50,9 @@ function App() {
               component={IssuesPage}
               path="/issues"
             />
-          </IssuesContextProvider>
-          
-          <IssuesContextProvider>
             <Route
-              component={issuePage}
-              path="/issue"
+              component={IssuePage}
+              path="/issue/:id"
             />
           </IssuesContextProvider>
 

@@ -7,11 +7,11 @@ import { clickPlayer } from "../../redux/actions";
 import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
 
-export const IssuePage = ({ props }) => {
+export const IssuePage = props => {
   const { t } = useTranslation();
 
-  //const { someAttributeFromProps } = props;
-
+  const { id } = props.params;
+  
   const dispatch = useDispatch();
 
   dispatch(clickPlayer());
@@ -19,23 +19,19 @@ export const IssuePage = ({ props }) => {
   // const rows/*: GridRowsProp*/ = useIssues();
 
   const ISSUES = gql`
-  query GetIssues{
+  query GetIssue($number_of_issue:Int!){
     repository(owner:"facebook", name:"react") {
-      issues(last:1, states:CLOSED) {
-        edges {
-          node {
-            title
-            url
-            body
-            number
-            state
-            comments(first:1) {
-              edges { 
-                node { 
-                  body 
-                } 
-              }
-            }
+      issue (number: $number_of_issue) {
+        title
+        url
+        body
+        number
+        state
+        comments(first:1) {
+          edges { 
+            node { 
+              body 
+            } 
           }
         }
       }
@@ -43,27 +39,23 @@ export const IssuePage = ({ props }) => {
   }
 `;
 
-  const {loading, error, data} = useQuery(ISSUES);
+  const {loading, error, data} = useQuery(ISSUES,{
+    variables: { number_of_issue: Number(id) }
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  const rows = data.repository.issues.edges.map( issueEdge => {
-    return { 
-      id: issueEdge.node.number,
-      title: issueEdge.node.title,
-      body: issueEdge.node.body,
-      comments: issueEdge.node.comments.edges.map( commentEdge => ({body:commentEdge.node.body})),
+  const issue = { 
+      id: data.repository.issue.number,
+      title: data.repository.issue.title,
+      body: data.repository.issue.body,
+      comments: data.repository.issue.comments.edges.map( commentEdge => ({body:commentEdge.node.body})),
     }
-  });
   
-  const columns/*: GridColDef[]*/ = [
-    { field: 'title', headerName: t('issue.title'), width: 150 },
-  ];
-
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <SimpleCard issue={rows[0]}></SimpleCard>
+      <SimpleCard issue={issue}></SimpleCard>
     </div>
   );
 
