@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 import { IssuePage } from "./pages/issuePage";
+import { constants } from "./constants/router.constants";
 Amplify.configure(aws_exports);
 
 function App() {
@@ -48,11 +49,11 @@ function App() {
           <IssuesContextProvider>
             <Route
               component={IssuesPage}
-              path="/issues"
+              path={constants.router.issues}
             />
             <Route
               component={IssuePage}
-              path="/issue/:id"
+              path={constants.router.issue}
             />
           </IssuesContextProvider>
 

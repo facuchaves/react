@@ -6,6 +6,8 @@ import { useSelector, useDispatch, connect } from "react-redux";
 import { clickPlayer } from "../../redux/actions";
 import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
+import { useLocation } from "wouter";
+import { constants } from "../../constants/router.constants";
 
 export const IssuesPage = ({ props }) => {
   const { t } = useTranslation();
@@ -17,6 +19,8 @@ export const IssuesPage = ({ props }) => {
   dispatch(clickPlayer());
 
   // const rows/*: GridRowsProp*/ = useIssues();
+
+  const [location, setLocation] = useLocation();
 
   const ISSUES = gql`
   query GetIssues{
@@ -63,7 +67,11 @@ export const IssuesPage = ({ props }) => {
 
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
+      <DataGrid 
+        rows={rows} 
+        columns={columns} 
+        onRowClick={ ( gridRowParams ) => { setLocation( constants.router.issue_prefix + gridRowParams.id) } }
+       />
     </div>
   );
 
