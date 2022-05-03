@@ -1,24 +1,24 @@
 import { useContext, useEffect, useState } from "react";
-import { getPlayers } from "../services/playersService";
-import PlayersContext from "../context/PlayersContext";
+import { GetIssues } from "../services/issuesService";
+import IssuesContext from "../context/IssuesContext";
 
 //custom hook que lo uso para el manejo de gifs, seteo de gifs, paginado
 //uso el gifsContext para guardar de forma global los gifs
-export const usePlayers = ({ playersName } = { playersName: "g" }) => {
+export const useIssues = ({ issuesName } = { issuesName: "g" }) => {
   
   //estas serian variables globales (para eso se usa el usecontext)
-  const { players, setPlayers } = useContext(PlayersContext);
+  const { issues, setIssues } = useContext(IssuesContext);
 
   //Si dejo la lista vacia del useEffect solo se renderiza 1 vez
   useEffect(
     function () {
-      getPlayers().then((playersRes) => {
-        setPlayers(playersRes);
+      GetIssues().then((issuesRes) => {
+        setIssues(issuesRes);
       });
     },
-    [players,setPlayers]
+    [issues,setIssues]
   );
 
-  return players;
+  return issues;
 
 };

@@ -7,6 +7,33 @@ import { createStore } from "redux";
 import allReducers from "./redux/reducers";
 import { Provider } from "react-redux";
 import './i18n';
+import { ApolloClient, InMemoryCache, ApolloProvider , createHttpLink} from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
+require('dotenv').config()
+
+const httpLink = createHttpLink({
+  uri: 'https://api.github.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  // const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      // authorization: token ? `Bearer ${token}` : "",
+      authorization: `Bearer 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`
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+});
+
+console.log('process.env.GRAPHQL_URL',process.env.GRAPHQL_URL)
 
 const store = createStore(
   allReducers,
@@ -16,7 +43,9 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Route } from "wouter";
-import { PlayersPage } from "./pages/playersPage";
+import { IssuesPage } from "./pages/issuesPage";
 import StaticContex from "./context/StaticContex";
-import { PlayersContextProvider } from "./context/PlayersContext";
+import { IssuesContextProvider } from "./context/IssuesContext";
 import { AppBar , Toolbar , IconButton , Typography, Button , BottomNavigation , BottomNavigationAction } from '@material-ui/core';
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -44,12 +44,12 @@ function App() {
               tener en cuenta que tiene que "envolver" los componentes donde voy a querer consumirlo
           */}
           
-          <PlayersContextProvider>
+          <IssuesContextProvider>
             <Route
-              component={PlayersPage}
-              path="/players"
+              component={IssuesPage}
+              path="/issues"
             />
-          </PlayersContextProvider>
+          </IssuesContextProvider>
           
         </section>
         <section>

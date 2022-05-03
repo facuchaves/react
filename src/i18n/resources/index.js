@@ -1,5 +1,5 @@
 import commonsResource from "./commons.resource";
-import playerResource from "./player.resource";
+import issueResource from "./issue.resource";
 import footerResource from "./footer.resource";
 
 // TODO Improve this ...
@@ -7,7 +7,7 @@ const resources = {
         en:{
             translation:{
                 ...commonsResource.en.translation,
-                ...playerResource.en.translation,
+                ...issueResource.en.translation,
                 ...footerResource.en.translation,
             }
         }

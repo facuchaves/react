@@ -1,15 +1,14 @@
-const playerResource = {
+const issueResource = {
     en: {
       translation: {
-        "player":{
+        "issue":{
             "info": "Player Info i18n",
             "id": "Player ID i18n",
-            "name": "Name i18n",
-            "score": "Score i18n",
+            "title": "Issue Title",
             "logConsole": "Log Player in console i18n",
         }
       }
     }
   }
 
-export default playerResource
+export default issueResource
