@@ -1,7 +1,7 @@
 import React from "react";
 import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid';
 // import { useIssues } from "../../hooks/useIssues";
-import SimpleCard from "../../components/players";
+import SimpleCard from "../../components/issue";
 import { useSelector, useDispatch, connect } from "react-redux";
 import { clickPlayer } from "../../redux/actions";
 import { useTranslation } from "react-i18next";
@@ -36,13 +36,6 @@ export const IssuesPage = ({ props }) => {
                 } 
               }
             }
-            labels(first:5) {
-              edges {
-                node {
-                  name
-                }
-              }
-            }
           }
         }
       }
@@ -55,16 +48,23 @@ export const IssuesPage = ({ props }) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  const rows = data.repository.issues.edges.map( edge => ({ id: edge.node.number, issueTitleCol: edge.node.title }) );
+  const rows = data.repository.issues.edges.map( issueEdge => {
+    return { 
+      id: issueEdge.node.number,
+      title: issueEdge.node.title,
+      body: issueEdge.node.body,
+      comments: issueEdge.node.comments.edges.map( commentEdge => ({body:commentEdge.node.body})),
+    }
+  });
   
   const columns/*: GridColDef[]*/ = [
-    { field: 'issueTitleCol', headerName: t('issue.title'), width: 150 },
+    { field: 'title', headerName: t('issue.title'), width: 150 },
   ];
 
   return (
     <div style={{ height: 300, width: '100%' }}>
       <DataGrid rows={rows} columns={columns} />
-      {/* <SimpleCard player={rows[0]}></SimpleCard> */}
+      <SimpleCard issue={rows[0]}></SimpleCard>
     </div>
   );
 

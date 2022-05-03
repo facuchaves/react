@@ -2,10 +2,12 @@ const issueResource = {
     en: {
       translation: {
         "issue":{
-            "info": "Player Info i18n",
-            "id": "Player ID i18n",
+            "info": "Issue Info",
+            "id": "Issue ID",
             "title": "Issue Title",
-            "logConsole": "Log Player in console i18n",
+            "body": "Issue Body",
+            "comments": "Issue Comments",
+            "logConsole": "Log Issue in console",
         }
       }
     }

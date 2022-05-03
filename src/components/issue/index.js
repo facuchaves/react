@@ -27,33 +27,41 @@ const useStyles = makeStyles({
 export default function SimpleCard(props) {
   const { t } = useTranslation();
 
-  const { player }  = props
+  const { issue }  = props
   
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const consolePlayer = (player) => {
-    console.log(player);
+  const consoleIssue = (issue) => {
+    console.log(issue);
   }
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {t('player.info')}
+          {t('issue.info')}
         </Typography>
         <Typography variant="h5" component="h2">
-          {t('player.id')} : {bull} {player?.id} {bull}
+          {t('issue.id')} : {bull} {issue?.id} {bull}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {t('player.name')} : {player?.playerNameCol}
+          {t('issue.title')} : {issue?.title}
         </Typography>
-        <Typography variant="body2" component="p">
-          {t('player.score')} : {player?.playerScoreCol}
+        <Typography className={classes.pos} color="textSecondary">
+          {t('issue.body')} : {issue?.body}
         </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {t('issue.comments')}
+        </Typography>
+        { issue.comments.map( comment => (
+          <Typography className={classes.pos} color="textSecondary" key={comment}>
+            {t('issue.body')} : {comment?.body}
+          </Typography>
+      )) }
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => consolePlayer(player)}> {t('player.logConsole')} </Button>
+        <Button size="small" onClick={() => consoleIssue(issue)}> {t('issue.logConsole')} </Button>
       </CardActions>
     </Card>
   );
