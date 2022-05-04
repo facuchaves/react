@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
 import { useLocation } from "wouter";
 import { constants } from "../../constants/router.constants";
+import SearchFormHome from "../../components/SearchForm";
 
 export const IssuesPage = ({ props }) => {
   const { t } = useTranslation();
@@ -67,6 +68,7 @@ export const IssuesPage = ({ props }) => {
 
   return (
     <div style={{ height: 300, width: '100%' }}>
+      <SearchFormHome/>
       <DataGrid 
         rows={rows} 
         columns={columns} 

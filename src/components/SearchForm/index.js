@@ -2,7 +2,14 @@ import React, { useCallback } from "react";
 import { useLocation } from "wouter";
 import { useSelector, useDispatch } from "react-redux";
 import { updateSearchInput, updateRating } from "../../redux/actions";
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import SearchIcon from '@mui/icons-material/Search';
 const RATINGS = ["g", "pg", "pg-13", "r"];
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const SearchFormHome = () => {
   const [path, pushLocation] = useLocation();
@@ -14,16 +21,21 @@ const SearchFormHome = () => {
   console.log({ rating });
   console.log({ input });
 
-  const manejarSubmit = useCallback(
-    (event) => {
-      //evito que no se refresque la pantalla
-      event.preventDefault();
+  const manejarSubmit = event => {
+    event.preventDefault();
+    console.log("submit !")
+  }
 
-      //navegar a otra ruta
-      pushLocation(`/gif/${input.searchInput}/${rating.rating}`);
-    },
-    [pushLocation, rating.rating, input.searchInput]
-  );
+  // useCallback(
+  //   (event) => {
+  //     //evito que no se refresque la pantalla
+  //     event.preventDefault();
+
+  //     //navegar a otra ruta
+  //     pushLocation(`/gif/${input.searchInput}/${rating.rating}`);
+  //   },
+  //   [pushLocation, rating.rating, input.searchInput]
+  // );
 
   const manejarSearchInput = (event) => {
     //with redux!
@@ -43,22 +55,11 @@ const SearchFormHome = () => {
 
   return (
     <form onSubmit={manejarSubmit}>
-      <input
-        placeholder="Ingresá un texto..."
-        type="text"
-        onChange={manejarSearchInput}
-        value={input.searchInput}
-      />
-
-      <select onChange={manejarRating} value={rating.rating}>
-        <option disabled>Rating type</option>
-        {RATINGS.map((rating) => (
-          <option key={rating}>{rating}</option>
-        ))}
-      </select>
-
-      <button>Buscar</button>
-      <small>{input.times}</small>
+      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+      <Typography>Closed</Typography>
+      <Switch {...label} defaultChecked />
+      <Typography>Open</Typography>
+      <Button variant="outlined" type="submit"><SearchIcon/></Button>
     </form>
   );
 };
