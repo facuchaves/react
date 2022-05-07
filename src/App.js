@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route } from "wouter";
+import { IssuePage } from "./pages/issuePage";
 import IssuesPage from "./pages/issuesPage";
 import StaticContex from "./context/StaticContex";
 import { IssuesContextProvider } from "./context/IssuesContext";
@@ -11,7 +12,6 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTranslation } from "react-i18next";
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
-import { IssuePage } from "./pages/issuePage";
 import { constants } from "./constants/router.constants";
 Amplify.configure(aws_exports);
 

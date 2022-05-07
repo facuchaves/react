@@ -1,23 +1,10 @@
 import React from "react";
-import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid';
-// import { useIssues } from "../../hooks/useIssues";
 import SimpleCard from "../../components/issue";
-import { useSelector, useDispatch, connect } from "react-redux";
-import { clickPlayer } from "../../redux/actions";
-import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
 
 export const IssuePage = props => {
-  const { t } = useTranslation();
-
   const { id } = props.params;
   
-  const dispatch = useDispatch();
-
-  dispatch(clickPlayer());
-
-  // const rows/*: GridRowsProp*/ = useIssues();
-
   const ISSUES = gql`
   query GetIssue($number_of_issue:Int!){
     repository(owner:"facebook", name:"react") {
@@ -44,6 +31,7 @@ export const IssuePage = props => {
   });
 
   if (loading) return <p>Loading...</p>;
+
   if (error) return <p>Error :(</p>;
 
   const issue = { 
@@ -60,7 +48,3 @@ export const IssuePage = props => {
   );
 
 };
-
-const stateIssue = (state) => ({ isClicked: state.isClicked })
-
-export default connect(stateIssue)(IssuePage);
