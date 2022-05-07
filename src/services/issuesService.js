@@ -1,4 +1,6 @@
-export const GetIssues = async () => {
+import {gql, useQuery} from "@apollo/client";
+
+export default async () => {
 
   return ;//data.issues.map( issue => ({ id: issue.entity_id, playerNameCol: issue.name, playerScoreCol: issue.score }));
   // return fetch(urlGetPlayers)

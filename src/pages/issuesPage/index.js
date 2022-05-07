@@ -3,30 +3,31 @@ import { DataGrid, GridRowsProp, GridColDef } from '@material-ui/data-grid';
 // import { useIssues } from "../../hooks/useIssues";
 import SimpleCard from "../../components/issue";
 import { useSelector, useDispatch, connect } from "react-redux";
-import { clickPlayer } from "../../redux/actions";
+import { clickPlayer, searchIssues } from "../../redux/actions";
 import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
 import { useLocation } from "wouter";
 import { constants } from "../../constants/router.constants";
 import SearchFormHome from "../../components/SearchForm";
+import { useIssues } from "../../hooks/useIssues";
 
-export const IssuesPage = ({ props }) => {
+export const IssuesPage = ( props ) => {
   const { t } = useTranslation();
 
-  //const { someAttributeFromProps } = props;
+  const { q , status , handleSubmit } = props;
 
-  const dispatch = useDispatch();
+  const issueQuery = useIssues();
 
-  dispatch(clickPlayer());
-
-  // const rows/*: GridRowsProp*/ = useIssues();
-
+  console.log("props(PAGE) : ", props )
+  console.log("q(PAGE) : ", q )
+  console.log("status(PAGE) : ", status )
+  
   const [location, setLocation] = useLocation();
 
   const ISSUES = gql`
-  query GetIssues{
+  query GetIssues($state:[IssueState!]){
     repository(owner:"facebook", name:"react") {
-      issues(last:1, states:CLOSED) {
+      issues(last:1, states:$state) {
         edges {
           node {
             title
@@ -48,7 +49,9 @@ export const IssuesPage = ({ props }) => {
   }
 `;
 
-  const {loading, error, data} = useQuery(ISSUES);
+  const {loading, error, data} = useQuery(ISSUES,{
+    variables: { state: status }
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -68,7 +71,7 @@ export const IssuesPage = ({ props }) => {
 
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <SearchFormHome/>
+      <SearchFormHome handleSubmit={handleSubmit}/>
       <DataGrid 
         rows={rows} 
         columns={columns} 
@@ -79,6 +82,13 @@ export const IssuesPage = ({ props }) => {
 
 };
 
-const stateIssue = (state) => ({ isClicked: state.isClicked })
+const mapStateToProps = state => {
+  console.log("mapStateToProps state : " , state)
+  return state.searchIssues.query
+}
 
-export default connect(stateIssue)(IssuesPage);
+const mapDispatchToProps = dispatch => ({
+  handleSubmit : ( event ) => dispatch(searchIssues(event))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(IssuesPage);

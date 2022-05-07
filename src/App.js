@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Route } from "wouter";
-import { IssuesPage } from "./pages/issuesPage";
+import IssuesPage from "./pages/issuesPage";
 import StaticContex from "./context/StaticContex";
 import { IssuesContextProvider } from "./context/IssuesContext";
 import { AppBar , Toolbar , IconButton , Typography, Button , BottomNavigation , BottomNavigationAction } from '@material-ui/core';

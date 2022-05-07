@@ -1,30 +1,57 @@
 import React, { useCallback } from "react";
 import { useLocation } from "wouter";
 import { useSelector, useDispatch } from "react-redux";
-import { updateSearchInput, updateRating } from "../../redux/actions";
+import { updateSearchInput, updateRating, searchIssues } from "../../redux/actions";
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
+import { useForm , Form } from "../form/useForm";
 const RATINGS = ["g", "pg", "pg-13", "r"];
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-const SearchFormHome = () => {
-  const [path, pushLocation] = useLocation();
+const initialFValues = {
+  q: '',
+  status: 'OPEN'
+}
+
+const SearchFormHome = (props) => {
 
   const rating = useSelector((state) => state.rat);
   const input = useSelector((state) => state.inp);
   const dispatch = useDispatch();
+  const { handleSubmit } = props;
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors }
+    if ('q' in fieldValues)
+        temp.q = fieldValues.q ? "" : "This field is required."
+    setErrors({
+        ...temp
+    })
 
-  console.log({ rating });
-  console.log({ input });
+    if (fieldValues == values)
+        return Object.values(temp).every(x => x == "")
+}
 
-  const manejarSubmit = event => {
+  const {
+      values,
+      setValues,
+      errors,
+      setErrors,
+      handleInputChange,
+      resetForm
+  } = useForm(initialFValues, true, validate);
+
+  const handleSubmitInternal = event => {
     event.preventDefault();
-    console.log("submit !")
+  //   if (validate()){
+      handleSubmit(values);
+  //     resetForm()
+  // }
   }
+
 
   // useCallback(
   //   (event) => {
@@ -53,13 +80,35 @@ const SearchFormHome = () => {
     dispatch(updateRating(event.target.value));
   };
 
+  const handleSwitchChange = event => {
+    if( "OPEN" === event.target.value ){
+      event.target.value = "CLOSED"
+    } else {
+      event.target.value = "OPEN"
+    }
+    handleInputChange(event)
+  }
+
   return (
-    <form onSubmit={manejarSubmit}>
-      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+    <form onSubmit={handleSubmitInternal}>
+      <TextField 
+            id="outlined-basic" 
+            label="Outlined" 
+            variant="outlined" 
+            name="q"
+            value={values.q}
+            onChange={handleInputChange}/>
+      
       <Typography>Closed</Typography>
-      <Switch {...label} defaultChecked />
+      <Switch 
+        {...label} 
+        defaultChecked
+        name="status"
+        value={values.status}
+        onClick={handleSwitchChange} />
       <Typography>Open</Typography>
-      <Button variant="outlined" type="submit"><SearchIcon/></Button>
+      
+      <Button variant="outlined" type="submit"> <SearchIcon/> </Button>
     </form>
   );
 };

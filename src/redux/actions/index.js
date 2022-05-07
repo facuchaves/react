@@ -1,7 +1,8 @@
-const ACTIONS = {
+export const ACTIONS = {
   UPDATE_SEARCH_INPUT: "UPDATE_SEARCH_INPUT",
   UPDATE_RATING: "UPDATE_RATING",
   CLICK_PLAYER: "CLICK_PLAYER",
+  SEARCH_ISSUES: "SEARCH_ISSUES",
 };
 
 export const updateSearchInput = (searchInput) => {
@@ -21,5 +22,14 @@ export const updateRating = (rating) => {
 export const clickPlayer = () => {
   return {
     type: ACTIONS.CLICK_PLAYER,
+  };
+};
+
+export const searchIssues = ( query ) => {
+  console.log("Action")
+  console.log("query: ",query)
+  return {
+    type: ACTIONS.SEARCH_ISSUES,
+    payload: query,
   };
 };
