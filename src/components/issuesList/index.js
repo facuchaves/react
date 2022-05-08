@@ -9,7 +9,7 @@ import { constants } from "../../constants/router.constants";
 const IssuesList = ({ q , status }) => {
   const { t } = useTranslation();
 
-  const [ setLocation ] = useLocation();
+  const [ location , setLocation ] = useLocation();
 
   const ISSUES = getIssuesQuery();
   const {loading, error, data} = useQuery(ISSUES,{
@@ -53,7 +53,7 @@ const getIssuesQuery = () => {
   return gql`
         query GetIssues($state:[IssueState!]){
           repository(owner:"facebook", name:"react") {
-            issues(last:1, states:$state) {
+            issues(last:10, states:$state) {
               edges {
                 node {
                   title
@@ -61,7 +61,7 @@ const getIssuesQuery = () => {
                   body
                   number
                   state
-                  comments(first:1) {
+                  comments(first:5) {
                     edges { 
                       node { 
                         body 

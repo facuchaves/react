@@ -14,7 +14,7 @@ export const IssuePage = props => {
         body
         number
         state
-        comments(first:1) {
+        comments(first:5) {
           edges { 
             node { 
               body 
