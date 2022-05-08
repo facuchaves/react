@@ -27,7 +27,7 @@ const IssuesList = ({ q , status }) => {
   const rows = mapDataToRow(data);
 
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div style={{ height: '300px', width: '100%' }}>
       <DataGrid 
         rows={rows} 
         columns={columns} 

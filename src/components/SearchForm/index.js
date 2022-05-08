@@ -55,26 +55,30 @@ const SearchFormHome = (props) => {
   }
 
   return (
-    <form onSubmit={handleSubmitInternal}>
-      <TextField 
-            id="outlined-basic" 
-            label="Outlined" 
-            variant="outlined" 
-            name="q"
-            value={values.q}
-            onChange={handleInputChange}/>
-      
-      <Typography>Closed</Typography>
-      <Switch 
-        {...label} 
-        defaultChecked
-        name="status"
-        value={values.status}
-        onClick={handleSwitchChange} />
-      <Typography>Open</Typography>
-      
-      <Button variant="outlined" type="submit"> <SearchIcon/> </Button>
-    </form>
+    <div>
+
+      <form onSubmit={handleSubmitInternal} style={{display: 'inline-flex'}}>
+        <TextField 
+              id="outlined-basic" 
+              label="Outlined" 
+              variant="outlined" 
+              name="q"
+              value={values.q}
+              onChange={handleInputChange}/>
+        
+        <Typography>Closed</Typography>
+        <Switch 
+          {...label} 
+          defaultChecked
+          name="status"
+          value={values.status}
+          onClick={handleSwitchChange} />
+        <Typography>Open</Typography>
+        
+        <Button variant="outlined" type="submit"> <SearchIcon/> </Button>
+      </form>
+
+    </div>
   );
 };
 
