@@ -1,38 +1,27 @@
 import React from "react";
 import {Issue} from "../../components/issue";
 import {gql, useQuery} from "@apollo/client";
+import LinearProgress from '@mui/material/LinearProgress';
+import { Box } from "@material-ui/core";
+import ErrorIcon from '@mui/icons-material/Error';
 
 export const IssuePage = props => {
   const { id } = props.params;
-  
-  const ISSUES = gql`
-  query GetIssue($number_of_issue:Int!){
-    repository(owner:"facebook", name:"react") {
-      issue (number: $number_of_issue) {
-        title
-        url
-        body
-        number
-        state
-        comments(first:5) {
-          edges { 
-            node { 
-              body 
-            } 
-          }
-        }
-      }
+
+  const ISSUE = getIssueQuery()
+  const {loading, error, data} = useQuery(ISSUE,{
+    variables : {
+      number_of_issue: Number(id)
     }
-  }
-`;
+  })
 
-  const {loading, error, data} = useQuery(ISSUES,{
-    variables: { number_of_issue: Number(id) }
-  });
+  if (loading) return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress />
+    </Box>
+  );
 
-  if (loading) return <p>Loading...</p>;
-
-  if (error) return <p>Error :(</p>;
+  if (error) return <ErrorIcon/>;
 
   const issue = { 
       id: data.repository.issue.number,
@@ -48,3 +37,28 @@ export const IssuePage = props => {
   );
 
 };
+
+const getIssueQuery = () => {
+    
+  return gql`
+      query GetIssue($number_of_issue:Int!){
+        repository(owner:"facebook", name:"react") {
+          issue (number: $number_of_issue) {
+            title
+            url
+            body
+            number
+            state
+            comments(first:5) {
+              edges { 
+                node { 
+                  body 
+                } 
+              }
+            }
+          }
+        }
+      }
+    `;
+
+}

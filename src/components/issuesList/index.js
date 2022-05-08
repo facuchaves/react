@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import {gql, useQuery} from "@apollo/client";
 import { useLocation } from "wouter";
 import { constants } from "../../constants/router.constants";
+import { Box, LinearProgress } from "@material-ui/core";
+import ErrorIcon from '@mui/icons-material/Error';
 
 const IssuesList = ({ q , status }) => {
   const { t } = useTranslation();
@@ -16,9 +18,13 @@ const IssuesList = ({ q , status }) => {
     variables: { state: status }
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress />
+    </Box>
+  );
 
-  if (error) return <p>Error :(</p>;
+  if (error) return <ErrorIcon/>;
 
   const columns/*: GridColDef[]*/ = [
     { field: 'title', headerName: t('issue.title'), width: 150 },
