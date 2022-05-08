@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleCard from "../../components/issue";
+import {Issue} from "../../components/issue";
 import {gql, useQuery} from "@apollo/client";
 
 export const IssuePage = props => {
@@ -43,7 +43,7 @@ export const IssuePage = props => {
   
   return (
     <div style={{ height: 300, width: '100%' }}>
-      <SimpleCard issue={issue}></SimpleCard>
+      <Issue issue={issue}></Issue>
     </div>
   );
 

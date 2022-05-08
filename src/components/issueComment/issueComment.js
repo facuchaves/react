@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import {IssueComment} from '../issueComment/issueComment';
 
 const useStyles = makeStyles({
   root: {
@@ -22,22 +21,16 @@ const useStyles = makeStyles({
   },
 });
 
-export const Issue = ( {issue} ) => {
+export const IssueComment = ( {comment} ) => {
+  
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="h5" component="h2">
-          {issue?.title} #{issue?.id}
+        <Typography className={classes.pos} color="textSecondary" key={comment}>
+        {comment?.body}
         </Typography>
-        <br/>
-        <Typography className={classes.pos} color="textSecondary">
-          {issue?.body}
-        </Typography>
-        { issue.comments.map( comment => (
-          <IssueComment comment={comment} /> 
-        ))}
       </CardContent>
     </Card>
   );
