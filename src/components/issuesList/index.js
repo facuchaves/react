@@ -8,14 +8,16 @@ import { constants } from "../../constants/router.constants";
 import { Box, LinearProgress } from "@material-ui/core";
 import ErrorIcon from '@mui/icons-material/Error';
 
-const IssuesList = ({ q , status }) => {
+const IssuesList = ({ query }) => {
   const { t } = useTranslation();
-
+  
+  // eslint-disable-next-line no-unused-vars
   const [ location , setLocation ] = useLocation();
-
+  console.log("query : " , query)
   const ISSUES = getIssuesQuery();
   const {loading, error, data} = useQuery(ISSUES,{
-    variables: { state: status }
+    // variables: {repo: 'facebook/react', state: 'OPEN', q: ''}
+    variables: { q: "repo:" + query.repo + " is:issue is:" + query.state + " " + query.q }
   });
 
   if (loading) return (
@@ -45,36 +47,24 @@ const IssuesList = ({ q , status }) => {
 };
 
 const mapDataToRow = data => {
-  return data.repository.issues.edges.map( issueEdge => {
+  return data.search.nodes.map( node => {
     return { 
-      id: issueEdge.node.number,
-      title: issueEdge.node.title,
-      body: issueEdge.node.body,
-      comments: issueEdge.node.comments.edges.map( commentEdge => ({body:commentEdge.node.body})),
+      id: node.number,
+      title: node.title,
+      body: node.body,
     }
   })
 }
 
 const getIssuesQuery = () => {
   return gql`
-        query GetIssues($state:[IssueState!]){
-          repository(owner:"facebook", name:"react") {
-            issues(last:10, states:$state) {
-              edges {
-                node {
-                  title
-                  url
-                  body
-                  number
-                  state
-                  comments(first:5) {
-                    edges { 
-                      node { 
-                        body 
-                      } 
-                    }
-                  }
-                }
+        query GetIssues($q:String!){
+          search(query: $q, type: ISSUE, first: 10) {
+            nodes {
+              ... on Issue {
+                number
+                title
+                body
               }
             }
           }
@@ -83,8 +73,7 @@ const getIssuesQuery = () => {
 }
 
 const mapStateToProps = state => {
-  console.log("mapStateToProps state : " , state)
-  return state.searchIssues.query
+  return state.issuesStore
 } 
 
 export default connect(mapStateToProps)(IssuesList);

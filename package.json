@@ -37,6 +37,7 @@
     "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "jest": "jest",
     "eject": "react-scripts eject",
     "cy:run-ct": "cypress run-ct"
   },
@@ -59,7 +60,9 @@
     ]
   },
   "devDependencies": {
+    "babel-jest": "^28.1.0",
     "cypress": "^8.6.0",
+    "jest": "^28.1.0",
     "mocha": "^9.1.3",
     "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.1",

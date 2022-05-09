@@ -31,7 +31,7 @@ export const IssuePage = props => {
     }
   
   return (
-    <div style={{ height: 300, width: '100%' }}>
+    <div style={{ width: '80%' , padding: 20,display: 'inline-block'}}>
       <Issue issue={issue}></Issue>
     </div>
   );
@@ -45,10 +45,8 @@ const getIssueQuery = () => {
         repository(owner:"facebook", name:"react") {
           issue (number: $number_of_issue) {
             title
-            url
             body
             number
-            state
             comments(first:5) {
               edges { 
                 node { 

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`searchIssuesReducer 1`] = `
+Object {
+  "q": "Query",
+  "query": Object {
+    "q": "Query",
+    "status": "OPEN",
+  },
+  "status": "OPEN",
+}
+`;

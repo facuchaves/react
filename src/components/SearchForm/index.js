@@ -10,7 +10,7 @@ const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const initialFValues = {
   q: '',
-  status: 'OPEN'
+  state: 'OPEN'
 }
 
 const SearchFormHome = (props) => {
@@ -70,8 +70,8 @@ const SearchFormHome = (props) => {
         <Switch 
           {...label} 
           defaultChecked
-          name="status"
-          value={values.status}
+          name="state"
+          value={values.state}
           onClick={handleSwitchChange} />
         <Typography>Open</Typography>
         

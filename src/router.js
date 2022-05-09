@@ -7,7 +7,7 @@ import { constants } from "./constants/router.constants";
 
 const Router = () => {
   return (
-    <div className="">
+    <div className="" style={{backgroundColor : '#f5f5f5'}}>
         <IssuesContextProvider>
         <Route
             component={IssuesPage}

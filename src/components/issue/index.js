@@ -26,7 +26,8 @@ export const Issue = ( {issue} ) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <div>
+      <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2">
           {issue?.title} #{issue?.id}
@@ -35,10 +36,11 @@ export const Issue = ( {issue} ) => {
         <Typography className={classes.pos} color="textSecondary">
           {issue?.body}
         </Typography>
-        { issue.comments.map( comment => (
-          <IssueComment comment={comment} /> 
-        ))}
       </CardContent>
     </Card>
+    { issue.comments.map( comment => (
+      <IssueComment comment={comment} key={comment}/> 
+    ))}
+    </div>
   );
 }
