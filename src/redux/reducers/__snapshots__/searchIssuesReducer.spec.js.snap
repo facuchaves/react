@@ -2,11 +2,10 @@
 
 exports[`searchIssuesReducer 1`] = `
 Object {
-  "q": "Query",
   "query": Object {
     "q": "Query",
-    "status": "OPEN",
+    "repo": "facebook/react",
+    "state": "CLOSED",
   },
-  "status": "OPEN",
 }
 `;
