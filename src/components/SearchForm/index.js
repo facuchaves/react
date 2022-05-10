@@ -13,7 +13,7 @@ const initialFValues = {
   state: 'OPEN'
 }
 
-const SearchFormHome = (props) => {
+ export const SearchFormHome = (props) => {
 
   const { handleSubmit } = props;
   const validate = (fieldValues = values) => {
@@ -57,7 +57,7 @@ const SearchFormHome = (props) => {
   return (
     <div>
 
-      <form onSubmit={handleSubmitInternal} style={{display: 'inline-flex'}}>
+      <form onSubmit={handleSubmitInternal} style={{display: 'inline-flex'}} test-id="searchIssueFromTestId">
         <TextField 
               id="outlined-basic" 
               label="Outlined" 

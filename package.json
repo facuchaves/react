@@ -14,7 +14,7 @@
     "@mui/material": "^5.6.4",
     "@nestjs/microservices": "^7.6.17",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
+    "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^4.3.3",
     "aws-amplify-react": "^5.1.4",
@@ -60,13 +60,18 @@
     ]
   },
   "devDependencies": {
-    "babel-jest": "^28.1.0",
+    "@babel/preset-env": "7.17.10",
+    "@babel/preset-react": "7.16.7",
+    "chai": "^4.3.6",
     "cypress": "^8.6.0",
-    "jest": "^28.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "mocha": "^9.1.3",
     "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.1",
     "mochawesome-report-generator": "^6.0.1",
+    "react-test-renderer": "^18.1.0",
+    "sinon": "^14.0.0",
     "start-server-and-test": "^1.14.0"
   },
   "resolutions": {

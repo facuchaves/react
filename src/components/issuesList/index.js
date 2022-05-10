@@ -37,6 +37,7 @@ const IssuesList = ({ query }) => {
   return (
     <div style={{ height: '300px', width: '100%' }}>
       <DataGrid 
+        test-id="listOfIssuesTestId"
         rows={rows} 
         columns={columns} 
         onRowClick={ gridRowParams => { setLocation( constants.router.issue_prefix + gridRowParams.id) } }
