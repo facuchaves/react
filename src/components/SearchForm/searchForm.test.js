@@ -2,7 +2,7 @@
 import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 // import {cleanup, fireEvent, render} from '@testing-library/react';
-import {SearchFormHome} from "./index";
+import SearchForm from "./index";
 import {expect} from "chai";
 const sinon = require("sinon");
 
@@ -10,15 +10,11 @@ Enzyme.configure({adapter: new Adapter()});
 
 test('searchForm', () => {
 
-    const handleSubmit = () => {}
-
     const callback = sinon.spy();
 
-    // const handleSubmitSpies = jest.spyOn(handleSubmit);
-    
-    const searchFormHome = shallow(<SearchFormHome handleSubmit={callback} />);
+    const SearchForm = shallow(<SearchForm handleSubmit={callback} />);
 
-    const form = searchFormHome.find('[test-id="searchIssueFromTestId"]')
+    const form = SearchForm.find('[test-id="search_issue_from_test_id"]')
     expect(form.props().onSubmit).to.have.lengthOf(1);
 
     form.simulate('submit',{ preventDefault : () => {} })

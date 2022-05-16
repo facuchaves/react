@@ -1,28 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     marginTop : 15,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
   pos: {
     marginBottom: 12,
   },
 });
 
-export const IssueComment = ( {comment} ) => {
+const IssueComment = ( {comment} ) => {
   
   const classes = useStyles();
 
@@ -36,3 +28,5 @@ export const IssueComment = ( {comment} ) => {
     </Card>
   );
 }
+
+export default IssueComment

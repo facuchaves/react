@@ -1,9 +1,0 @@
-.ListOfGifs {
-    display: grid;
-    min-height: 100vh;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 0px 16px;
-    align-items: center;
-    min-height: 100vh;
-    grid-template-rows: masonry;
-}

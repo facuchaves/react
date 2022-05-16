@@ -5,14 +5,14 @@
 // check out the link below and learn how to write your first test:
 // https://on.cypress.io/writing-first-test
 
-describe('Simple first test:', function() {
+describe('Test table of issues:', function() {
     // Step 1: setup the application state
     // beforeEach(function() {
     //   cy.visit('/');
     // });
     
-    describe('Load page:', () => {
-      it('button with text', () => {
+    describe('Query tests', () => {
+      it('Click one issue of table should redirect to a issue detail page', () => {
         cy.visit('/issues');
         // Step 2: Take an action (Sign in)
         // cy.get(selectors.usernameInput).type("DUMMY_USERNAME");
@@ -20,14 +20,20 @@ describe('Simple first test:', function() {
         // cy.get(selectors.signInSignInButton).contains('Sign In').click();
         // cy.get(selectors.googleButton).contains('Sign In').click();
   
-        cy.get(selectors.firstIssue).click();
-
-        // Step 3: Make an assertion (Check for sign-out text)
-        //   cy.get(selectors.signOutButton).contains('Sign Out');
-        // cy.title().should('eq','Google');
-        cy.location().should((loc) => {
-          expect(loc.pathname).to.include('/issue/')
+        const firstIssue = cy.get(selectors.firstIssue);
+        
+        firstIssue.invoke('attr', 'test_issue_id').then( testIssueId => {
+          cy.get(selectors.firstIssue).click();
+          
+          // Step 3: Make an assertion (Check for sign-out text)
+          //   cy.get(selectors.signOutButton).contains('Sign Out');
+          // cy.title().should('eq','Google');
+          cy.location().should((loc) => {
+            expect(loc.pathname).to.equals('/issue/'+testIssueId)
+          })
         })
+
+
 
       });
     });
@@ -39,7 +45,5 @@ describe('Simple first test:', function() {
     // signInPasswordInput: '[data-test="sign-in-password-input"]',
     // signInSignInButton: '[data-test="sign-in-sign-in-button"]',
     // signOutButton: '[data-test="sign-out-button"]',
-    divWithArgentinaText: '.uU7dJb',
-    listOfIssues: '[test-id="listOfIssuesTestId"]',
-    firstIssue: '[data-rowindex="0"] :first-child',
+    firstIssue: '[test_id="row-isssue-id"]:first',
   }

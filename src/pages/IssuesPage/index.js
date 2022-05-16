@@ -1,15 +1,15 @@
 import React from "react";
-import SearchFormHome from "../../components/SearchForm";
-import IssuesList from "../../components/issuesList";
+import SearchForm from "../../components/SearchForm";
+import IssuesList from "../../components/IssuesList";
 import { searchIssues } from "../../redux/actions";
 import { connect } from "react-redux";
 
 const IssuesPage = ({ handleSubmit }) => {
   return (
-    <div>
-      <SearchFormHome handleSubmit={handleSubmit}/>
+    <>
+      <SearchForm handleSubmit={handleSubmit}/>
       <IssuesList/>
-    </div>
+    </>
   );
 
 };

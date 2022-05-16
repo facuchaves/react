@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
@@ -12,18 +11,14 @@ import { setContext } from '@apollo/client/link/context';
 require('dotenv').config()
 
 const httpLink = createHttpLink({
-  uri: 'https://api.github.com/graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  // const token = localStorage.getItem('token');
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      // authorization: token ? `Bearer ${token}` : "",
-      authorization: `Bearer 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`
+      authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`
     }
   }
 });
@@ -32,8 +27,6 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache()
 });
-
-console.log('process.env.GRAPHQL_URL',process.env.GRAPHQL_URL)
 
 const store = createStore(
   allReducers,

@@ -1,12 +1,20 @@
 import React from "react";
-import {Issue} from "../../components/issue";
+import {Issue} from "../../components/Issue";
 import {gql, useQuery} from "@apollo/client";
 import LinearProgress from '@mui/material/LinearProgress';
-import { Box } from "@material-ui/core";
+import Box from '@mui/material/Box';
 import ErrorIcon from '@mui/icons-material/Error';
+import styled from 'styled-components';
 
-export const IssuePage = props => {
-  const { id } = props.params;
+const IssueDiv = styled.div`
+    width: '80%';
+    padding: 20;
+    display: 'inline';
+    margin: '0 auto';
+`;
+
+const IssuePage = ({params}) => {
+  const { id } = params;
 
   const ISSUE = getIssueQuery()
   const {loading, error, data} = useQuery(ISSUE,{
@@ -31,9 +39,9 @@ export const IssuePage = props => {
     }
   
   return (
-    <div style={{ width: '80%' , padding: 20,display: 'inline-block'}}>
+    <IssueDiv>
       <Issue issue={issue}></Issue>
-    </div>
+    </IssueDiv>
   );
 
 };
@@ -58,5 +66,7 @@ const getIssueQuery = () => {
         }
       }
     `;
-
 }
+
+
+export default IssuePage

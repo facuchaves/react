@@ -5,6 +5,8 @@ export const ACTIONS = {
 export const searchIssues = ( query ) => {
   return {
     type: ACTIONS.SEARCH_ISSUES,
-    payload: query,
+    payload: {
+      query: query
+    },
   };
 };

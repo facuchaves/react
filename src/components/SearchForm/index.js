@@ -4,84 +4,56 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
-import { useForm , Form } from "../form/useForm";
+import { useForm } from "../form/useForm";
+import Stack from '@mui/material/Stack';
+import styled from 'styled-components';
+import { useTranslation } from "react-i18next";
 
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
+const Form = styled.form`
+    display: inline-flex;
+    margin: 0 auto;
+`;
 
 const initialFValues = {
   q: '',
   state: 'OPEN'
 }
 
- export const SearchFormHome = (props) => {
+ const SearchForm = ({ handleSubmit }) => {
+  const { t } = useTranslation();
 
-  const { handleSubmit } = props;
-  const validate = (fieldValues = values) => {
-    let temp = { ...errors }
-    if ('q' in fieldValues)
-        temp.q = fieldValues.q ? "" : "This field is required."
-    setErrors({
-        ...temp
-    })
-
-    if (fieldValues === values)
-        return Object.values(temp).every(x => x === "")
-}
-
-  const {
-      values,
-      errors,
-      setErrors,
-      handleInputChange,
-      resetForm
-  } = useForm(initialFValues, true, validate);
+  const { values, handleInputChange } = useForm(initialFValues, true, ()=>{});
 
   const handleSubmitInternal = event => {
     event.preventDefault();
-  //   if (validate()){
-      handleSubmit(values);
-  //     resetForm()
-  // }
+    handleSubmit(values);
   }
 
 
   const handleSwitchChange = event => {
-    if( "OPEN" === event.target.value ){
-      event.target.value = "CLOSED"
-    } else {
-      event.target.value = "OPEN"
-    }
+    event.target.value = "OPEN" === event.target.value ? "CLOSED" : "OPEN";
     handleInputChange(event)
   }
 
   return (
-    <div>
+    <>
+      <Form onSubmit={handleSubmitInternal} test-id="search_issue_from_test_id">
 
-      <form onSubmit={handleSubmitInternal} style={{display: 'inline-flex'}} test-id="searchIssueFromTestId">
-        <TextField 
-              id="outlined-basic" 
-              label="Outlined" 
-              variant="outlined" 
-              name="q"
-              value={values.q}
-              onChange={handleInputChange}/>
+        <TextField variant="outlined" name="q" value={values.q} onChange={handleInputChange}/>
         
-        <Typography>Closed</Typography>
-        <Switch 
-          {...label} 
-          defaultChecked
-          name="state"
-          value={values.state}
-          onClick={handleSwitchChange} />
-        <Typography>Open</Typography>
+        <Stack direction="row" spacing={1} alignItems="center">
+          
+          <Typography>{t('common.closed')}</Typography>
+          <Switch defaultChecked name="state" value={values.state} onClick={handleSwitchChange} />
+          <Typography>{t('common.open')}</Typography>
+
+        </Stack>
         
         <Button variant="outlined" type="submit"> <SearchIcon/> </Button>
-      </form>
 
-    </div>
+      </Form>
+    </>
   );
 };
 
-//basicamente con el react.memo lo que hacemos es que solo se renderice este compoenente
-// en el caso de que sus props se modifiquen
-export default React.memo(SearchFormHome);
+export default SearchForm;

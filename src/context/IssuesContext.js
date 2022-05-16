@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 const Context = React.createContext({})
 
-export function IssuesContextProvider ({children}){
+export const IssuesContextProvider = ({children}) => {
     const [issues, setIssues] = useState([])
 
     return <Context.Provider value={{issues, setIssues}} >
