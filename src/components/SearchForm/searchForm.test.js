@@ -12,9 +12,9 @@ test('searchForm', () => {
 
     const callback = sinon.spy();
 
-    const SearchForm = shallow(<SearchForm handleSubmit={callback} />);
+    const SearchFormMock = shallow(<SearchForm handleSubmit={callback} />);
 
-    const form = SearchForm.find('[test-id="search_issue_from_test_id"]')
+    const form = SearchFormMock.find('[test-id="search_issue_from_test_id"]')
     expect(form.props().onSubmit).to.have.lengthOf(1);
 
     form.simulate('submit',{ preventDefault : () => {} })
