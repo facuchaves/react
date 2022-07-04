@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 };
 
 const actionsMap = new Map([
-  [ACTIONS.SEARCH_ISSUES, (state , action ) => (
+  [ACTIONS.SEARCH_ENTITIES, (state , action ) => (
     {
       query: {
         ...state.query,
@@ -19,11 +19,11 @@ const actionsMap = new Map([
   )]
 ]);
 
-const searchIssuesReducer = (state = INITIAL_STATE, action) => {
+const searchEntitiesReducer = (state = INITIAL_STATE, action) => {
   if( actionsMap.has(action.type) ){
     return actionsMap.get(action.type)(state,action);
   }
   return state
 };
 
-export default searchIssuesReducer;
+export default searchEntitiesReducer;

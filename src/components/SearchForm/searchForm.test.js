@@ -14,7 +14,7 @@ test('searchForm', () => {
 
     const SearchFormMock = shallow(<SearchForm handleSubmit={callback} />);
 
-    const form = SearchFormMock.find('[test-id="search_issue_from_test_id"]')
+    const form = SearchFormMock.find('[test_id="search_entity_from_test_id"]')
     expect(form.props().onSubmit).to.have.lengthOf(1);
 
     form.simulate('submit',{ preventDefault : () => {} })

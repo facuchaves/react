@@ -45,6 +45,6 @@ You must to have installed node and yarn
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-The default port it's 8080, and the main page it's at http://localhost:8080/issues
+The default port it's 8080, and the main page it's at http://localhost:8080/entities
 
 <p align="right">(<a href="#top">back to top</a>)</p>

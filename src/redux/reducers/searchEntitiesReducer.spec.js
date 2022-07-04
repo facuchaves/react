@@ -1,5 +1,5 @@
 import { ACTIONS } from "../actions";
-import searchIssuesReducer from "./searchIssuesReducer";
+import searchIssuesReducer from "./searchEntitiesReducer";
 
 test('searchIssuesReducer', () => {
   const state = {

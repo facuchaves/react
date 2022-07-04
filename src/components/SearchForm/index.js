@@ -37,7 +37,7 @@ const initialFValues = {
 
   return (
     <>
-      <Form onSubmit={handleSubmitInternal} test-id="search_issue_from_test_id">
+      <Form onSubmit={handleSubmitInternal} test_id="search_entity_from_test_id">
 
         <TextField variant="outlined" name="q" value={values.q} onChange={handleInputChange}/>
         

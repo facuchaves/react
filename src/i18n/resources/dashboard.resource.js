@@ -6,7 +6,7 @@ const dashboardResource = {
             "text": "Your Website"
         },
         "sidebar":{
-          "issues": "Issues",
+          "entities": "Entities",
         },
         "appbar":{
           "dashboard": "Dashboard",

@@ -1,8 +1,8 @@
 const constants = {
     router : {
-        issues : '/issues',
-        issue_prefix : '/issue/',
-        issue : '/issue/:id',
+        entities : '/entities',
+        entity_prefix : '/entity/',
+        entity : '/entity/:id',
     }
 } 
 

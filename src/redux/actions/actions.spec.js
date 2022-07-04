@@ -1,5 +1,5 @@
-import { searchIssues } from ".";
+import { searchEntities , createEntity } from ".";
 
-test('searchIssues action', () => {
-  expect( searchIssues({q:'query'}) ).toMatchSnapshot();
+test('searchEntities action', () => {
+  expect( searchEntities({q:'query'}) ).toMatchSnapshot();
 })

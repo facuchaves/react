@@ -1,20 +1,23 @@
 import { useContext, useEffect, useState } from "react";
-import IssuesContext from "../context/IssuesContext";
+import EntitiesContext from "../context/EntitiesContext";
+import { getEntities } from "../services/entityService";
 
 //custom hook que lo uso para el manejo de gifs, seteo de gifs, paginado
 //uso el gifsContext para guardar de forma global los gifs
-export const useIssues = () => {
+export const useEntities = () => {
   
   //estas serian variables globales (para eso se usa el usecontext)
-  const { issues, setIssues } = useContext(IssuesContext);
+  const { entities, setEntities } = useContext(EntitiesContext);
 
   //Si dejo la lista vacia del useEffect solo se renderiza 1 vez
   useEffect( () => {
-      setIssues(issues);
+      getEntities().then( entities =>
+        setEntities(entities)
+      )
     },
-    [issues,setIssues]
+    []
   );
 
-  return {issues};
+  return entities;
 
 };

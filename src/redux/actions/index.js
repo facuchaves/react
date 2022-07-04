@@ -1,12 +1,10 @@
 export const ACTIONS = {
-  SEARCH_ISSUES: "SEARCH_ISSUES",
+  SEARCH_ENTITIES: "SEARCH_ENTITIES",
 };
 
-export const searchIssues = ( query ) => {
-  return {
-    type: ACTIONS.SEARCH_ISSUES,
+export const searchEntities = query => ({
+    type: ACTIONS.SEARCH_ENTITIES,
     payload: {
       query: query
-    },
-  };
-};
+    }
+  })

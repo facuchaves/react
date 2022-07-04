@@ -15,11 +15,11 @@ export const MainListItems = () => {
   const [ location , setLocation ] = useLocation();
 
   return ( <React.Fragment>
-    <ListItemButton onClick={ () => { setLocation( constants.router.issues ) } }>
+    <ListItemButton onClick={ () => { setLocation( constants.router.entities ) } }>
       <ListItemIcon>
         <BugReportIcon />
       </ListItemIcon>
-      <ListItemText primary={t('sidebar.issues')} />
+      <ListItemText primary={t('sidebar.entities')} />
     </ListItemButton>
   </React.Fragment>
   );

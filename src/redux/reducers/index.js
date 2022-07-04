@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import searchIssuesReducer from "./searchIssuesReducer";
+import searchEntitiesReducer from "./searchEntitiesReducer";
 
 const allReducers = combineReducers({
-  issuesStore: searchIssuesReducer,
+  entitiesStore: searchEntitiesReducer,
 });
 
 export default allReducers;
