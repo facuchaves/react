@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { useTranslation } from "react-i18next";
-import {gql, useQuery} from "@apollo/client";
-import { useLocation } from "wouter";
-import constants from "../../constants/router.constants";
+import React from 'react';
+import {connect} from 'react-redux';
+import {useTranslation} from 'react-i18next';
+import {gql, useQuery} from '@apollo/client';
+import {useLocation} from 'wouter';
+import constants from '../../constants/router.constants';
 import Box from '@mui/material/Box';
-import { Grid, Paper } from "@mui/material";
+import {Grid, Paper} from '@mui/material';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Table from '@mui/material/Table';
@@ -14,18 +14,18 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Skeleton from '@mui/material/Skeleton';
-import { useEntities } from "../../hooks/useEntites";
-import DeleteDialog from "../DeleteDialog";
+import {useEntities} from '../../hooks/useEntites';
+import DeleteDialog from '../DeleteDialog';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import EntitiesActionsButton from "../../components/EntitiesActionsButton";
+import EntitiesActionsButton from '../../components/EntitiesActionsButton';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import {AddEntity} from "../AddEntity";
+import {AddEntity} from '../AddEntity';
 import styled from 'styled-components';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
@@ -44,26 +44,27 @@ const style = {
 };
 
 const StyledAddEntity = styled(AddEntity)`
-    width: '80%';
-    padding: 20;
-    display: 'inline';
-    margin: '0 auto';
+  width: '80%';
+  padding: 20;
+  display: 'inline';
+  margin: '0 auto';
 `;
 
-const EntitiesList = ({ query }) => {
+const EntitiesList = ({query}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [globalSuccessAlertOpen, setGlobalSuccessAlertOpen] = React.useState(false);
+  const [globalSuccessAlertOpen, setGlobalSuccessAlertOpen] =
+    React.useState(false);
   const handleGlobalSuccessAlertOpen = () => setGlobalSuccessAlertOpen(true);
 
-  const { t } = useTranslation();
-  
+  const {t} = useTranslation();
+
   // const skeletonArray = Array(10).fill('');
 
   // eslint-disable-next-line no-unused-vars
-  const [ location , setLocation ] = useLocation();
+  const [location, setLocation] = useLocation();
   const entities = useEntities();
   const [openDialog, setOpenDialog] = React.useState(false);
 
@@ -89,7 +90,14 @@ const EntitiesList = ({ query }) => {
   return (
     <>
       <EntitiesListWrapper>
-        <DeleteDialog open={openDialog} handleAgree={ () => {console.log("Entra");handleClose();} } handleClose={handleClose}/>
+        <DeleteDialog
+          open={openDialog}
+          handleAgree={() => {
+            console.log('Entra');
+            handleClose();
+          }}
+          handleClose={handleClose}
+        />
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -100,13 +108,32 @@ const EntitiesList = ({ query }) => {
           </TableHead>
           <TableBody>
             {entities.map((entity) => (
-              <TableRow key={entity.id} >
-                <TableCell sx={{cursor: 'pointer'}} test_id={'row-entity-id'} test_entity_id={entity.id} onClick={ () => { setLocation( constants.router.entity_prefix + entity.id) } } >{entity.name}</TableCell>
+              <TableRow key={entity.id}>
+                <TableCell
+                  sx={{cursor: 'pointer'}}
+                  test_id={'row-entity-id'}
+                  test_entity_id={entity.id}
+                  onClick={() => {
+                    setLocation(constants.router.entity_prefix + entity.id);
+                  }}
+                >
+                  {entity.name}
+                </TableCell>
                 <TableCell>{entity.score}</TableCell>
-                <TableCell> 
-                  <ArrowUpwardIcon sx={{cursor: 'pointer'}} /> 
-                  <EditIcon sx={{cursor: 'pointer'}} onClick={ () => { setLocation( constants.router.entity_prefix + entity.id) } } /> 
-                  <DeleteIcon sx={{cursor: 'pointer'}} onClick={ () => { handleClickOpen() } } /> 
+                <TableCell>
+                  <ArrowUpwardIcon sx={{cursor: 'pointer'}} />
+                  <EditIcon
+                    sx={{cursor: 'pointer'}}
+                    onClick={() => {
+                      setLocation(constants.router.entity_prefix + entity.id);
+                    }}
+                  />
+                  <DeleteIcon
+                    sx={{cursor: 'pointer'}}
+                    onClick={() => {
+                      handleClickOpen();
+                    }}
+                  />
                 </TableCell>
               </TableRow>
             ))}
@@ -114,34 +141,40 @@ const EntitiesList = ({ query }) => {
         </Table>
       </EntitiesListWrapper>
 
-      <Box sx={{ '& > :not(style)': { m: 1 } }}>
-        <Fab color="primary" aria-label="add" sx={{float :' right'}} onClick={handleOpen} test_id="open_add_entity_modal_button_id" >
-            <AddIcon/>
+      <Box sx={{'& > :not(style)': {m: 1}}}>
+        <Fab
+          color="primary"
+          aria-label="add"
+          sx={{float: ' right'}}
+          onClick={handleOpen}
+          test_id="open_add_entity_modal_button_id"
+        >
+          <AddIcon />
         </Fab>
       </Box>
-      
-      <Box sx={{ width: '100%' }}>
-      <Collapse in={globalSuccessAlertOpen}>
-        <Alert
-          test_id="success_alert_test_id"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setOpen(false);
-              }}
-            >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-          sx={{ mb: 2 }}
-        >
-          Success message !
-        </Alert>
-      </Collapse>
-    </Box>
+
+      <Box sx={{width: '100%'}}>
+        <Collapse in={globalSuccessAlertOpen}>
+          <Alert
+            test_id="success_alert_test_id"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            sx={{mb: 2}}
+          >
+            Success message !
+          </Alert>
+        </Collapse>
+      </Box>
 
       <Modal
         open={open}
@@ -154,28 +187,37 @@ const EntitiesList = ({ query }) => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Text in a modal
           </Typography>
-          <StyledAddEntity entity={{}} handleClose={handleClose} handleSuccess={handleGlobalSuccessAlertOpen} ></StyledAddEntity>
+          <StyledAddEntity
+            entity={{}}
+            handleClose={handleClose}
+            handleSuccess={handleGlobalSuccessAlertOpen}
+          ></StyledAddEntity>
         </Box>
       </Modal>
     </>
   );
-
 };
 
 const EntitiesListWrapper = ({children}) => {
-  return(
-  <Grid item xs={12}>
-    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' , height: 400, width: '100%' }}>
-      <React.Fragment>
-        {children}
-      </React.Fragment>
-    </Paper>
-  </Grid>
-  )
-}
+  return (
+    <Grid item xs={12}>
+      <Paper
+        sx={{
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          height: 400,
+          width: '100%',
+        }}
+      >
+        <React.Fragment>{children}</React.Fragment>
+      </Paper>
+    </Grid>
+  );
+};
 
-const mapStateToProps = state => {
-  return state.entitiesStore
-} 
+const mapStateToProps = (state) => {
+  return state.entitiesStore;
+};
 
 export default connect(mapStateToProps)(EntitiesList);

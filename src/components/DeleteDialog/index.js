@@ -5,12 +5,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useTranslation } from "react-i18next";
+import {useTranslation} from 'react-i18next';
 
-const DeleteDialog = props => {
-  const { t } = useTranslation();
-  const { open , handleAgree , handleClose} = props 
-  
+const DeleteDialog = (props) => {
+  const {t} = useTranslation();
+  const {open, handleAgree, handleClose} = props;
+
   return (
     <>
       <Dialog
@@ -36,6 +36,6 @@ const DeleteDialog = props => {
       </Dialog>
     </>
   );
-}
+};
 
-export default DeleteDialog
+export default DeleteDialog;

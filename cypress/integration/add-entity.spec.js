@@ -1,7 +1,5 @@
 describe('Test add new entity:', () => {
-    
   describe('Add entity tests', () => {
-
     it('Should open and close modal', () => {
       cy.visit('/entities');
 
@@ -11,7 +9,6 @@ describe('Test add new entity:', () => {
       cy.get(selectors.modalAddEntity).should('be.visible');
       cy.get(selectors.closeModalAddEntity).click();
       cy.get(selectors.modalAddEntity).should('not.exist');
-      
     });
 
     it('Should validate when try to save empty entity ', () => {
@@ -20,24 +17,19 @@ describe('Test add new entity:', () => {
       cy.get(selectors.openModalButton).click();
       cy.get(selectors.saveEntityButton).click();
       cy.get(selectors.errorMessage).should('exist');
-
     });
-
 
     it('Should close modal and show success message on save', () => {
       cy.visit('/entities');
 
       cy.get(selectors.openModalButton).click();
-      cy.get(selectors.fieldName).type("Some Name");
+      cy.get(selectors.fieldName).type('Some Name');
       cy.get(selectors.saveEntityButton).click();
       cy.get(selectors.modalAddEntity).should('not.exist');
       cy.get(selectors.successAlert).should('exist');
       cy.get(selectors.successAlert).should('be.visible');
-      
     });
-
   });
-  
 });
 
 export const selectors = {
@@ -48,4 +40,4 @@ export const selectors = {
   errorMessage: '[test_id="error_message_id_0"]',
   fieldName: '[test_id="name_test_id"]',
   successAlert: '[test_id="success_alert_test_id"]',
-}
+};

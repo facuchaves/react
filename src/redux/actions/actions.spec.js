@@ -1,5 +1,5 @@
-import { searchEntities , createEntity } from ".";
+import {searchEntities, createEntity} from '.';
 
 test('searchEntities action', () => {
-  expect( searchEntities({q:'query'}) ).toMatchSnapshot();
-})
+  expect(searchEntities({q: 'query'})).toMatchSnapshot();
+});
