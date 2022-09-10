@@ -36,25 +36,28 @@
     "@testing-library/jest-dom": "5.11.9",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "14.2.0",
+    "@types/chai": "4.3.3",
+    "@types/enzyme": "3.10.12",
+    "@types/enzyme-adapter-react-16": "1.0.6",
     "@types/jest": "28.1.1",
     "@types/node": "17.0.42",
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.29.0",
     "chai": "4.3.6",
     "cypress": "8.6.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.6",
-    "eslint": "^8.0.1",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "6.5.1",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.31.1",
+    "eslint-plugin-n": "15.2.5",
+    "eslint-plugin-promise": "6.0.1",
+    "eslint-plugin-react": "7.31.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "mocha": "9.1.3",
     "mochawesome": "7.0.1",
@@ -87,6 +90,7 @@
     ]
   },
   "resolutions": {
-    "ua-parser-js": "1.0.2"
+    "ua-parser-js": "1.0.2",
+    "react-i18next": ">=11.16.4"
   }
 }

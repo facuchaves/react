@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
@@ -28,7 +29,13 @@ const StyledAppBar = styled(MuiAppBar, {
   }),
 }));
 
-const AppBar = ({open, toggleDrawer}) => {
+const AppBar = ({
+  open,
+  toggleDrawer,
+}: {
+  open: boolean;
+  toggleDrawer: () => void;
+}) => {
   const {t} = useTranslation();
 
   return (
@@ -36,8 +43,7 @@ const AppBar = ({open, toggleDrawer}) => {
       <Toolbar
         sx={{
           pr: '24px', // keep right padding when drawer closed
-        }}
-      >
+        }}>
         <IconButton
           edge="start"
           color="inherit"
@@ -46,8 +52,7 @@ const AppBar = ({open, toggleDrawer}) => {
           sx={{
             marginRight: '36px',
             ...(open && {display: 'none'}),
-          }}
-        >
+          }}>
           <MenuIcon />
         </IconButton>
         <Typography
@@ -55,9 +60,8 @@ const AppBar = ({open, toggleDrawer}) => {
           variant="h6"
           color="inherit"
           noWrap
-          sx={{flexGrow: 1}}
-        >
-          {t('appbar.dashboard')}
+          sx={{flexGrow: 1}}>
+          {t<string>('appbar.dashboard')}
         </Typography>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">

@@ -12,7 +12,7 @@ import Copyright from './Copyright';
 
 const mdTheme = createTheme();
 
-const DashboardBody = ({children}) => (
+const DashboardBody = ({children}: {children: any}) => (
   <Box
     component="main"
     sx={{
@@ -23,8 +23,7 @@ const DashboardBody = ({children}) => (
       flexGrow: 1,
       height: '100vh',
       overflow: 'auto',
-    }}
-  >
+    }}>
     <Toolbar />
     <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
       <Grid container spacing={3}>
@@ -39,7 +38,7 @@ const DashboardBody = ({children}) => (
   </Box>
 );
 
-const DashboardContent = ({children}) => {
+const DashboardContent = ({children}: {children: any}) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -57,8 +56,8 @@ const DashboardContent = ({children}) => {
   );
 };
 
-const Dashboard = ({children}) => {
-  return <DashboardContent>{children}</DashboardContent>;
-};
+const Dashboard = ({children}: {children: any}) => (
+  <DashboardContent>{children}</DashboardContent>
+);
 
 export default Dashboard;

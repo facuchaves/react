@@ -1,11 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
-import allReducers from './redux/reducers';
 import {Provider} from 'react-redux';
-import './i18n';
 import {
   ApolloClient,
   InMemoryCache,
@@ -13,20 +9,23 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
+import './i18n';
+import App from './App';
+import allReducers from './redux/reducers';
+import reportWebVitals from './reportWebVitals';
+
 require('dotenv').config();
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
-const authLink = setContext((_, {headers}) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
-    },
-  };
-});
+const authLink = setContext((_, {headers}) => ({
+  headers: {
+    ...headers,
+    authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
+  },
+}));
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),

@@ -1,8 +1,9 @@
+import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import {useTranslation} from 'react-i18next';
 
-const Copyright = (props) => {
+const Copyright = (props: any) => {
   const {t} = useTranslation();
 
   return (
@@ -10,14 +11,13 @@ const Copyright = (props) => {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
-    >
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}>
       {t('copyrigth.title')}
       <Link color="inherit" href="https://mui.com/">
-        {t('copyrigth.text')}
+        {t<string>('copyrigth.text')}
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {new Date().getFullYear()}.
     </Typography>
   );
 };

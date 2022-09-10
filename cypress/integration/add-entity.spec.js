@@ -33,11 +33,11 @@ describe('Test add new entity:', () => {
 });
 
 export const selectors = {
-  openModalButton: '[test_id="open_add_entity_modal_button_id"]',
-  closeModalAddEntity: '[test_id="close_modal_add_entity_button_id"]',
-  modalAddEntity: '[test_id="modal_add_entity_test_id"]',
-  saveEntityButton: '[test_id="save_entity_button_id"]',
-  errorMessage: '[test_id="error_message_id_0"]',
-  fieldName: '[test_id="name_test_id"]',
-  successAlert: '[test_id="success_alert_test_id"]',
+  openModalButton: '[data-testid="open_add_entity_modal_button_id"]',
+  closeModalAddEntity: '[data-testid="close_modal_add_entity_button_id"]',
+  modalAddEntity: '[data-testid="modal_add_entity_test_id"]',
+  saveEntityButton: '[data-testid="save_entity_button_id"]',
+  errorMessage: '[data-testid="error_message_id_0"]',
+  fieldName: '[data-testid="name_test_id"]',
+  successAlert: '[data-testid="success_alert_test_id"]',
 };

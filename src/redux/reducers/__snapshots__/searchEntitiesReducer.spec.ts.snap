@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`searchIssuesReducer 1`] = `
+Object {
+  "query": Object {
+    "q": "Query",
+    "repo": "facebook/react",
+    "state": "CLOSED",
+  },
+}
+`;

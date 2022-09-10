@@ -18,6 +18,6 @@ test('searchIssuesReducer', () => {
   };
 
   expect(
-    searchIssuesReducer(state, {type: ACTIONS.SEARCH_ISSUES, payload: payload}),
+    searchIssuesReducer(state, {type: ACTIONS.SEARCH_ENTITIES, payload}),
   ).toMatchSnapshot();
 });

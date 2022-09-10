@@ -5,7 +5,7 @@ describe('Test table of entities:', function () {
 
       const firstEntity = cy.get(selectors.firstEntity);
 
-      firstEntity.invoke('attr', 'test_entity_id').then((testEntityId) => {
+      firstEntity.invoke('attr', 'data-entityid').then((testEntityId) => {
         cy.get(selectors.firstEntity).click();
 
         cy.location().should((loc) => {
@@ -17,5 +17,5 @@ describe('Test table of entities:', function () {
 });
 
 export const selectors = {
-  firstIssue: '[test_id="row-isssue-id"]:first',
+  firstIssue: '[data-testid="row-isssue-id"]:first',
 };

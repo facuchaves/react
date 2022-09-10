@@ -5,15 +5,11 @@ import EntitiesPage from './pages/EntitiesPage';
 import {EntitiesContextProvider} from './context/EntitiesContext';
 import constants from './constants/router.constants';
 
-const Router = () => {
-  return (
-    <>
-      <EntitiesContextProvider>
-        <Route component={EntitiesPage} path={constants.router.entities} />
-        <Route component={EntityPage} path={constants.router.entity} />
-      </EntitiesContextProvider>
-    </>
-  );
-};
+const Router = () => (
+  <EntitiesContextProvider>
+    <Route component={EntitiesPage} path={constants.router.entities} />
+    <Route component={EntityPage} path={constants.router.entity} />
+  </EntitiesContextProvider>
+);
 
 export default Router;

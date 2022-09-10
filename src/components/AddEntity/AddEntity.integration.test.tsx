@@ -1,19 +1,19 @@
-import {AddEntity} from '.';
+import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
 import {act} from 'react-dom/test-utils';
 import {useTranslation} from 'react-i18next';
+import {AddEntity} from '.';
 import {createEntity} from '../../services/entityService';
+
 jest.mock('../../services/entityService');
 
 jest.mock('react-i18next', () => ({
-  useTranslation: () => {
-    return {
-      t: (str) => str,
-      i18n: {
-        changeLanguage: () => new Promise(() => {}),
-      },
-    };
-  },
+  useTranslation: () => ({
+    t: (str: string) => str,
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+  }),
 }));
 
 const tick = () =>
@@ -25,12 +25,12 @@ test('Should close', () => {
   const handleClose = jest.fn();
 
   act(() => {
-    render(<AddEntity handleClose={handleClose} />);
+    render(<AddEntity handleSuccess={() => {}} handleClose={handleClose} />);
   });
 
   const closeButton = document.querySelector(
-    '[test_id="close_modal_add_entity_button_id"]',
-  );
+    '[data-testid="close_modal_add_entity_button_id"]',
+  ) as Element;
 
   act(() => {
     fireEvent.click(closeButton);
@@ -47,13 +47,15 @@ test('Should call success', async () => {
     render(<AddEntity handleSuccess={handleSuccess} handleClose={() => {}} />);
   });
 
-  const nameField = document.querySelector('[test_id="name_test_id"] input');
+  const nameField = document.querySelector(
+    '[data-testid="name_test_id"] input',
+  ) as Element;
 
   act(() => {
     fireEvent.change(nameField, {target: {value: 'some name'}});
     const saveButton = document.querySelector(
-      '[test_id="save_entity_button_id"]',
-    );
+      '[data-testid="save_entity_button_id"]',
+    ) as Element;
     saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
   await tick();
@@ -69,21 +71,25 @@ test('Should show error 400', async () => {
   createEntity.mockReturnValue(Promise.resolve(ERROR_400));
 
   act(() => {
-    render(<AddEntity />);
+    render(<AddEntity handleClose={() => {}} handleSuccess={() => {}} />);
   });
 
-  const nameField = document.querySelector('[test_id="name_test_id"] input');
+  const nameField = document.querySelector(
+    '[data-testid="name_test_id"] input',
+  ) as Element;
 
   act(() => {
     fireEvent.change(nameField, {target: {value: 'some name'}});
     const saveButton = document.querySelector(
-      '[test_id="save_entity_button_id"]',
-    );
+      '[data-testid="save_entity_button_id"]',
+    ) as Element;
     saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
   await tick();
 
-  const errorMessage = document.querySelector('[test_id="error_message_id_0"]');
+  const errorMessage = document.querySelector(
+    '[data-testid="error_message_id_0"]',
+  ) as Element;
   expect(errorMessage.textContent).toBe(ERROR_400.message[0]);
 });
 
@@ -96,20 +102,24 @@ test('Should show generic error 500', async () => {
   createEntity.mockReturnValue(Promise.resolve(ERROR_500));
 
   act(() => {
-    render(<AddEntity />);
+    render(<AddEntity handleClose={() => {}} handleSuccess={() => {}} />);
   });
 
-  const nameField = document.querySelector('[test_id="name_test_id"] input');
+  const nameField = document.querySelector(
+    '[data-testid="name_test_id"] input',
+  ) as Element;
 
   act(() => {
     fireEvent.change(nameField, {target: {value: 'some name'}});
     const saveButton = document.querySelector(
-      '[test_id="save_entity_button_id"]',
-    );
+      '[data-testid="save_entity_button_id"]',
+    ) as Element;
     saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
   await tick();
 
-  const errorMessage = document.querySelector('[test_id="error_message_id_0"]');
+  const errorMessage = document.querySelector(
+    '[data-testid="error_message_id_0"]',
+  ) as Element;
   expect(errorMessage.textContent).toBe(t('entity.form.error.generic'));
 });

@@ -1,11 +1,11 @@
 import React from 'react';
-import {Entity} from '../../components/Entity';
-import {gql, useQuery} from '@apollo/client';
-import LinearProgress from '@mui/material/LinearProgress';
-import Box from '@mui/material/Box';
-import ErrorIcon from '@mui/icons-material/Error';
+// import {gql, useQuery} from '@apollo/client';
+// import LinearProgress from '@mui/material/LinearProgress';
+// import Box from '@mui/material/Box';
+// import ErrorIcon from '@mui/icons-material/Error';
 import styled from 'styled-components';
-import {useEntity} from '../../hooks/useEntity';
+import useEntity from '../../hooks/useEntity';
+import Entity from '../../components/Entity';
 
 const EntityDiv = styled.div`
   width: '80%';
@@ -14,7 +14,7 @@ const EntityDiv = styled.div`
   margin: '0 auto';
 `;
 
-const EntityPage = ({params}) => {
+const EntityPage = ({params}: {params: {id: number}}) => {
   const {id} = params;
 
   // if (loading) return (
@@ -29,7 +29,7 @@ const EntityPage = ({params}) => {
 
   return (
     <EntityDiv>
-      <Entity entity={entity}></Entity>
+      <Entity entity={entity} />
     </EntityDiv>
   );
 };

@@ -3,10 +3,10 @@ import {styled} from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import {MainListItems} from './ListItems';
 import MuiDrawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
+import MainListItems from './ListItems';
 
 const drawerWidth = 240;
 
@@ -36,7 +36,13 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-const SideBar = ({open, toggleDrawer}) => (
+const SideBar = ({
+  open,
+  toggleDrawer,
+}: {
+  open: boolean;
+  toggleDrawer: () => void;
+}) => (
   <Drawer variant="permanent" open={open}>
     <Toolbar
       sx={{
@@ -44,8 +50,7 @@ const SideBar = ({open, toggleDrawer}) => (
         alignItems: 'center',
         justifyContent: 'flex-end',
         px: [1],
-      }}
-    >
+      }}>
       <IconButton onClick={toggleDrawer}>
         <ChevronLeftIcon />
       </IconButton>

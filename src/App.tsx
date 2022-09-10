@@ -6,15 +6,18 @@ import Router from './router';
 import Dashboard from './layouts/Dashboard';
 // Amplify.configure(aws_exports);
 
-function App() {
-  return (
-    //Objeto de static context creado para usar las variables globales en toda la app
-    <StaticContex.Provider value={'Some Value'}>
-      <Dashboard>
-        <Router />
-      </Dashboard>
-    </StaticContex.Provider>
-  );
-}
+const someValue = {
+  name: 'Some name',
+  lastName: 'Some lastname',
+  isAdult: true,
+};
+
+const App = () => (
+  <StaticContex.Provider value={someValue}>
+    <Dashboard>
+      <Router />
+    </Dashboard>
+  </StaticContex.Provider>
+);
 
 export default App;

@@ -8,7 +8,7 @@ i18n
     // the translations
     // (tip move them in a JSON file and import them,
     // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
-    resources: resources,
+    resources,
     lng: 'en',
     fallbackLng: 'en',
 
