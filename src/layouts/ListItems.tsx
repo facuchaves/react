@@ -10,7 +10,6 @@ import constants from '../constants/router.constants';
 const MainListItems = () => {
   const {t} = useTranslation();
 
-  // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useLocation();
 
   return (

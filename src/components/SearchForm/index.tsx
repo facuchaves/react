@@ -29,7 +29,8 @@ const SearchForm = ({handleSubmit}: {handleSubmit: (values: any) => void}) => {
     handleSubmit(values);
   };
 
-  const handleSwitchChange = (event: React.MouseEvent<HTMLElement>) => {
+  const handleSwitchChange = (event: any) => {
+    // eslint-disable-next-line no-param-reassign
     event.target.value = event.target.value === 'OPEN' ? 'CLOSED' : 'OPEN';
     handleInputChange(event);
   };

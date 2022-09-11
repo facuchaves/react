@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 
 let entities = [
   {id: 1, name: 'Dave Patrick', score: 10},

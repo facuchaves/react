@@ -1,48 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import {setContext} from '@apollo/client/link/context';
+// import {
+//   ApolloClient,
+//   InMemoryCache,
+//   ApolloProvider,
+//   createHttpLink,
+// } from '@apollo/client';
+// import {setContext} from '@apollo/client/link/context';
 import './i18n';
 import App from './App';
-import allReducers from './redux/reducers';
+import {store} from './store';
 import reportWebVitals from './reportWebVitals';
 
-require('dotenv').config();
+// require('dotenv').config();
 
-const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_GRAPHQL_URL,
-});
+// const httpLink = createHttpLink({
+//   uri: process.env.REACT_APP_GRAPHQL_URL,
+// });
 
-const authLink = setContext((_, {headers}) => ({
-  headers: {
-    ...headers,
-    authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
-  },
-}));
+// const authLink = setContext((_, {headers}) => ({
+//   headers: {
+//     ...headers,
+//     // authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
+//   },
+// }));
 
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
-
-const store = createStore(
-  allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
+// const client = new ApolloClient({
+//   link: authLink.concat(httpLink),
+//   cache: new InMemoryCache(),
+// });
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ApolloProvider client={client}>
-        <App />
-      </ApolloProvider>
+      {/* <ApolloProvider client={client}> */}
+      <App />
+      {/* </ApolloProvider> */}
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

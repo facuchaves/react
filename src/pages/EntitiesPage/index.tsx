@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
 import SearchForm from '../../components/SearchForm';
 import EntitiesList from '../../components/EntitiesList';
-import {searchEntities} from '../../redux/actions';
+// import {searchEntities} from '../../redux/actions';
 
 const EntitiesPage = ({
   handleSubmit,
@@ -15,10 +15,10 @@ const EntitiesPage = ({
   </>
 );
 
-const mapDispatchToProps = (
-  dispatch: ({type, payload}: {type: string; payload: any}) => void,
-) => ({
-  handleSubmit: (event: any) => dispatch(searchEntities(event)),
-});
+// const mapDispatchToProps = (
+//   dispatch: ({type, payload}: {type: string; payload: any}) => void,
+// ) => ({
+//   handleSubmit: (event: any) => dispatch(searchEntities(event)),
+// });
 
-export default connect(null, mapDispatchToProps)(EntitiesPage);
+export default EntitiesPage; // connect(null, mapDispatchToProps)(EntitiesPage);

@@ -9,23 +9,15 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {useTranslation} from 'react-i18next';
 
-const drawerWidth = 240;
+// const drawerWidth = 240;
 
 const StyledAppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})(({theme, open}) => ({
+})(({theme}) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
   }),
 }));
 
@@ -39,7 +31,7 @@ const AppBar = ({
   const {t} = useTranslation();
 
   return (
-    <StyledAppBar position="absolute" open={open}>
+    <StyledAppBar position="absolute">
       <Toolbar
         sx={{
           pr: '24px', // keep right padding when drawer closed

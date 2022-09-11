@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, {useState} from 'react';
 // import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
 import {useTranslation} from 'react-i18next';
@@ -20,7 +20,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
-import {createEntity} from '../../services/entityService';
+import {useAppDispatch} from '../../hooks/reactReduxHooks';
+import {createEntity} from '../../features/entity/entitySlice';
 // import Alert from '@mui/material/Alert';
 // import {useForm} from '../form/useForm';
 // import {searchEntities} from '../../redux/actions';
@@ -57,7 +58,7 @@ export const AddEntity = ({
   const {t} = useTranslation();
   // const classes = useStyles();
   const [fieldErrors, setFieldErrors] = useState({} as any);
-  const [errorMessages, setErrorMessages] = useState([]);
+  const [errorMessages, setErrorMessages] = useState([] as string[]);
   const [loading, setLoading] = useState(false);
   const [entity, setEntity] = useState({
     name: '',
@@ -80,6 +81,8 @@ export const AddEntity = ({
     {id: 3, value: 'other', label: t('entity.gender.other')},
   ];
 
+  const dispatch = useAppDispatch();
+
   const validateName = (name: string) => {
     const [isValid, errorMessageKeys] = AddEntityMethods().validateName(name);
     if (isValid) {
@@ -91,10 +94,7 @@ export const AddEntity = ({
     return isValid;
   };
 
-  const setEntityProp = (
-    e: SyntheticEvent<Element, Event>,
-    checked?: boolean,
-  ) => {
+  const setEntityProp = (e: any, checked?: boolean) => {
     entity[e.target.name] = e.target.value;
     setEntity({...entity});
   };
@@ -124,15 +124,17 @@ export const AddEntity = ({
     } else {
       // dispatch( searchEntities(e) )
       // await sleep(1000)
-      const res = await createEntity(entity);
-      if (res.statusCode === 200) {
-        handleSuccess();
-        close();
-      } else if (res.statusCode === 400) {
-        setErrorMessages(res.message);
-      } else {
-        setErrorMessages([t('entity.form.error.generic')]);
-      }
+      // const res = await createEntity(entity);
+      // if (res.statusCode === 200) {
+      //   handleSuccess();
+      //   close();
+      // } else if (res.statusCode === 400) {
+      //   setErrorMessages(res.message);
+      // } else {
+      //   setErrorMessages([t('entity.form.error.generic')]);
+      // }
+      dispatch(createEntity({id: 100, name: 'Entity added', score: 99}));
+      handleSuccess();
     }
     setLoading(false);
   };

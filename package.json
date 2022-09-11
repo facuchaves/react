@@ -12,6 +12,7 @@
     "@mui/lab": "5.0.0-alpha.85",
     "@mui/material": "5.6.4",
     "@mui/x-data-grid": "5.10.0",
+    "@reduxjs/toolkit": "1.8.5",
     "aws-amplify": "4.3.3",
     "aws-amplify-react": "5.1.4",
     "dotenv": "10.0.0",
@@ -22,8 +23,9 @@
     "react": "17.0.1",
     "react-bootstrap": "1.5.2",
     "react-dom": "17.0.1",
+    "react-error-overlay": "6.0.9",
     "react-i18next": "11.10.0",
-    "react-redux": "7.2.4",
+    "react-redux": "8.0.0",
     "react-scripts": "4.0.2",
     "redux": "4.1.0",
     "styled-components": "5.3.5",
@@ -91,6 +93,7 @@
   },
   "resolutions": {
     "ua-parser-js": "1.0.2",
-    "react-i18next": ">=11.16.4"
+    "react-i18next": ">=11.16.4",
+    "react-error-overlay": "6.0.9"
   }
 }

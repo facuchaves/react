@@ -27,9 +27,11 @@ import CloseIcon from '@mui/icons-material/Close';
 // import Button from '@mui/material/Button';
 import styled from 'styled-components';
 import constants from '../../constants/router.constants';
-import useEntities from '../../hooks/useEntites';
+// import useEntities from '../../hooks/useEntites';
+import {useAppSelector, useAppDispatch} from '../../hooks/reactReduxHooks';
 import DeleteDialog from '../DeleteDialog';
 import {AddEntity} from '../AddEntity';
+import {deleteEntity, updateEntity} from '../../features/entity/entitySlice';
 
 const style = {
   position: 'absolute',
@@ -80,16 +82,18 @@ const EntitiesList = ({query}: {query?: any}) => {
 
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useLocation();
-  const entities = useEntities();
+  // const entities = useEntities();
+  const entities = useAppSelector((state) => state.entity.entities);
+  const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpenDialog(true);
   };
 
-  // const handleClose = () => {
-  //   setOpenDialog(false);
-  // };
+  const handleCloseDeleteDialog = () => {
+    setOpenDialog(false);
+  };
   // if (error) return (
   //     <EntitiesListWrapper>
   //       <Box sx={{ width: '100%' }}>
@@ -108,10 +112,10 @@ const EntitiesList = ({query}: {query?: any}) => {
         <DeleteDialog
           open={openDialog}
           handleAgree={() => {
-            console.log('Entra');
-            handleClose();
+            dispatch(deleteEntity(1));
+            handleCloseDeleteDialog();
           }}
-          handleClose={handleClose}
+          handleClose={handleCloseDeleteDialog}
         />
         <Table size="small">
           <TableHead>
@@ -139,7 +143,8 @@ const EntitiesList = ({query}: {query?: any}) => {
                   <EditIcon
                     sx={{cursor: 'pointer'}}
                     onClick={() => {
-                      setLocation(constants.router.entity_prefix + entity.id);
+                      dispatch(updateEntity(entity));
+                      // setLocation(constants.router.entity_prefix + entity.id);
                     }}
                   />
                   <DeleteIcon
