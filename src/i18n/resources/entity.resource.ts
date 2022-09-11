@@ -31,6 +31,10 @@ const entitiyResource = {
           gender: 'Gender',
           save: 'Save',
           cancel: 'Cancel',
+          modal: {
+            title: 'Add entity',
+          },
+          successMessage: 'Entity added',
         },
         form: {
           validations: {

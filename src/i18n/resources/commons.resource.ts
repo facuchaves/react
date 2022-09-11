@@ -6,6 +6,10 @@ const commonsResource = {
         login: 'Login i18n',
         open: 'Open',
         closed: 'Closed',
+        error: {
+          title: 'Error',
+          body: 'Something was wrong ...',
+        },
       },
     },
   },

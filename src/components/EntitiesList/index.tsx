@@ -22,12 +22,10 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 // import EntitiesActionsButton from '../EntitiesActionsButton';
 // import {gql, useQuery} from '@apollo/client';
-// import AlertTitle from '@mui/material/AlertTitle';
-// import Skeleton from '@mui/material/Skeleton';
-// import Button from '@mui/material/Button';
+import AlertTitle from '@mui/material/AlertTitle';
+import Skeleton from '@mui/material/Skeleton';
 import styled from 'styled-components';
 import constants from '../../constants/router.constants';
-// import useEntities from '../../hooks/useEntites';
 import {useAppSelector, useAppDispatch} from '../../hooks/reactReduxHooks';
 import DeleteDialog from '../DeleteDialog';
 import {AddEntity} from '../AddEntity';
@@ -71,6 +69,8 @@ const EntitiesList = ({query}: {query?: any}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   const [globalSuccessAlertOpen, setGlobalSuccessAlertOpen] =
     React.useState(false);
@@ -78,7 +78,7 @@ const EntitiesList = ({query}: {query?: any}) => {
 
   const {t} = useTranslation();
 
-  // const skeletonArray = Array(10).fill('');
+  const skeletonArray = Array(10).fill('');
 
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useLocation();
@@ -94,17 +94,15 @@ const EntitiesList = ({query}: {query?: any}) => {
   const handleCloseDeleteDialog = () => {
     setOpenDialog(false);
   };
-  // if (error) return (
-  //     <EntitiesListWrapper>
-  //       <Box sx={{ width: '100%' }}>
-  //         <Alert severity="error">
-  //           <AlertTitle>Error</AlertTitle>
-  //           This is an error alert — <strong>check it out!</strong>
-  //         </Alert>
-  //       </Box>
-  //     </EntitiesListWrapper>
-
-  // )
+  if (error)
+    return (
+      <Box sx={{width: '100%'}}>
+        <Alert severity="error">
+          <AlertTitle>{t<string>('common.error.title')}</AlertTitle>
+          {t<string>('common.error.body')}
+        </Alert>
+      </Box>
+    );
 
   return (
     <>
@@ -126,36 +124,51 @@ const EntitiesList = ({query}: {query?: any}) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {entities.map((entity: any) => (
-              <TableRow key={entity.id}>
-                <TableCell
-                  sx={{cursor: 'pointer'}}
-                  data-testid="row-entity-id"
-                  data-entityid={entity.id}
-                  onClick={() => {
-                    setLocation(constants.router.entity_prefix + entity.id);
-                  }}>
-                  {entity.name}
-                </TableCell>
-                <TableCell>{entity.score}</TableCell>
-                <TableCell>
-                  <ArrowUpwardIcon sx={{cursor: 'pointer'}} />
-                  <EditIcon
-                    sx={{cursor: 'pointer'}}
-                    onClick={() => {
-                      dispatch(updateEntity(entity));
-                      // setLocation(constants.router.entity_prefix + entity.id);
-                    }}
-                  />
-                  <DeleteIcon
-                    sx={{cursor: 'pointer'}}
-                    onClick={() => {
-                      handleClickOpen();
-                    }}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
+            {loading
+              ? skeletonArray.map(() => (
+                  <TableRow>
+                    <TableCell sx={{cursor: 'pointer'}}>
+                      <Skeleton variant="text" sx={{fontSize: '1rem'}} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" sx={{fontSize: '1rem'}} />
+                    </TableCell>
+                    <TableCell>
+                      {' '}
+                      <Skeleton variant="text" sx={{fontSize: '1rem'}} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : entities.map((entity: any) => (
+                  <TableRow key={entity.id}>
+                    <TableCell
+                      sx={{cursor: 'pointer'}}
+                      data-testid="row-entity-id"
+                      data-entityid={entity.id}
+                      onClick={() => {
+                        setLocation(constants.router.entity_prefix + entity.id);
+                      }}>
+                      {entity.name}
+                    </TableCell>
+                    <TableCell>{entity.score}</TableCell>
+                    <TableCell>
+                      <ArrowUpwardIcon sx={{cursor: 'pointer'}} />
+                      <EditIcon
+                        sx={{cursor: 'pointer'}}
+                        onClick={() => {
+                          dispatch(updateEntity(entity));
+                          // setLocation(constants.router.entity_prefix + entity.id);
+                        }}
+                      />
+                      <DeleteIcon
+                        sx={{cursor: 'pointer'}}
+                        onClick={() => {
+                          handleClickOpen();
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       </EntitiesListWrapper>
@@ -187,7 +200,7 @@ const EntitiesList = ({query}: {query?: any}) => {
               </IconButton>
             }
             sx={{mb: 2}}>
-            Success message !
+            {t<string>('entity.add.successMessage')}
           </Alert>
         </Collapse>
       </Box>
@@ -200,7 +213,7 @@ const EntitiesList = ({query}: {query?: any}) => {
         data-testid="modal_add_entity_test_id">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            {t<string>('entity.add.modal.title')}
           </Typography>
           <StyledAddEntity
             handleClose={handleClose}
