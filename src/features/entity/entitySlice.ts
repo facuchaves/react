@@ -15,10 +15,6 @@ const initialState: EntityState = {
     {id: 3, name: 'John Week', score: 30},
     {id: 4, name: 'David Coperfield', score: 40},
     {id: 5, name: 'Diego Bounanote', score: 50},
-    {id: 6, name: 'Angel David Comizo', score: 60},
-    {id: 7, name: 'Dark Vather', score: 70},
-    {id: 8, name: 'Elon Musk', score: 80},
-    {id: 9, name: 'Julio Cesar', score: 90},
   ],
 };
 

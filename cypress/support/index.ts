@@ -27,6 +27,9 @@ declare global {
        * @example cy.getByTestId('greeting')
        */
       getByTestId(value: string): Chainable<Element>;
+      addEntity(): Chainable<Element>;
+      deleteEntityById(entityToDeleteId: number): Chainable<Element>;
+      editEntityById(entityToEditId: number): Chainable<Element>;
     }
   }
 }

@@ -5,40 +5,44 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {useTranslation} from 'react-i18next';
+import i18n from 'i18next';
 
-const DeleteDialog = (props: {
+const DeleteDialog = ({
+  open,
+  handleAgree,
+  handleClose,
+}: {
   open: boolean;
   handleAgree: () => void;
   handleClose: () => void;
-}) => {
-  const {t} = useTranslation();
-  const {open, handleAgree, handleClose} = props;
-
-  return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description">
-      <DialogTitle id="alert-dialog-title">
-        {t<string>('entity.delete.title')}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {t<string>('entity.delete.text')}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>
-          {t<string>('entity.delete.close')}
-        </Button>
-        <Button onClick={handleAgree} autoFocus>
-          {t<string>('entity.delete.agree')}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
+}) => (
+  <Dialog
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description">
+    <DialogTitle id="alert-dialog-title">
+      {i18n.t<string>('entity.delete.title')}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        {i18n.t<string>('entity.delete.text')}
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button
+        onClick={handleClose}
+        data-testid="close_delete_entity_dialog_button">
+        {i18n.t<string>('entity.delete.close')}
+      </Button>
+      <Button
+        onClick={handleAgree}
+        autoFocus
+        data-testid="agree_delete_entity_dialog_button">
+        {i18n.t<string>('entity.delete.agree')}
+      </Button>
+    </DialogActions>
+  </Dialog>
+);
 
 export default DeleteDialog;

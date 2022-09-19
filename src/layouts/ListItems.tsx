@@ -3,13 +3,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import BugReportIcon from '@mui/icons-material/BugReport';
-import {useTranslation} from 'react-i18next';
+import i18n from 'i18next';
 import {useLocation} from 'wouter';
 import constants from '../constants/router.constants';
 
 const MainListItems = () => {
-  const {t} = useTranslation();
-
   const [location, setLocation] = useLocation();
 
   return (
@@ -20,7 +18,7 @@ const MainListItems = () => {
       <ListItemIcon>
         <BugReportIcon />
       </ListItemIcon>
-      <ListItemText primary={t<string>('sidebar.entities')} />
+      <ListItemText primary={i18n.t<string>('sidebar.entities')} />
     </ListItemButton>
   );
 };

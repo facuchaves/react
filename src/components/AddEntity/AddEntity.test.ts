@@ -1,4 +1,4 @@
-import {AddEntity, AddEntityMethods} from '.';
+import AddEntityMethods from './AddEntityHelper';
 
 test('Validate correct name', () => {
   const [isValid, messageErrorKeys] =

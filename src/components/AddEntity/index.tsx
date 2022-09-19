@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 // import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
-import {useTranslation} from 'react-i18next';
+import i18n from 'i18next';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 // import styled from 'styled-components';
@@ -22,6 +22,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import {useAppDispatch} from '../../hooks/reactReduxHooks';
 import {createEntity} from '../../features/entity/entitySlice';
+import AddEntityMethods from './AddEntityHelper';
+import {genderOptions, skillsOptions, statusOptions} from './staticData';
 // import Alert from '@mui/material/Alert';
 // import {useForm} from '../form/useForm';
 // import {searchEntities} from '../../redux/actions';
@@ -37,25 +39,13 @@ import {createEntity} from '../../features/entity/entitySlice';
 
 // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const AddEntityMethods = () => {
-  const validateName: (name: string) => [boolean, string] = (name: string) => {
-    if (name) {
-      return [true, ''];
-    }
-    return [false, 'entity.form.validations.required'];
-  };
-
-  return {validateName};
-};
-
-export const AddEntity = ({
+const AddEntity = ({
   handleSuccess,
   handleClose,
 }: {
   handleSuccess: () => void;
   handleClose: () => void;
 }) => {
-  const {t} = useTranslation();
   // const classes = useStyles();
   const [fieldErrors, setFieldErrors] = useState({} as any);
   const [errorMessages, setErrorMessages] = useState([] as string[]);
@@ -65,22 +55,6 @@ export const AddEntity = ({
     state: 'pending',
   } as any);
 
-  const skillsOptions = [
-    {id: 1, value: 'nodejs', label: t('entity.skills.nodejs')},
-    {id: 2, value: 'react', label: t('entity.skills.react')},
-  ];
-
-  const statusOptions = [
-    {id: 1, value: 'pending', label: t('entity.state.pending')},
-    {id: 2, value: 'confirmed', label: t('entity.state.confirmed')},
-  ];
-
-  const genderOptions = [
-    {id: 1, value: 'female', label: t('entity.gender.female')},
-    {id: 2, value: 'male', label: t('entity.gender.male')},
-    {id: 3, value: 'other', label: t('entity.gender.other')},
-  ];
-
   const dispatch = useAppDispatch();
 
   const validateName = (name: string) => {
@@ -89,7 +63,7 @@ export const AddEntity = ({
       delete fieldErrors.name;
       setFieldErrors({...fieldErrors});
     } else {
-      setFieldErrors({...fieldErrors, name: t(errorMessageKeys)});
+      setFieldErrors({...fieldErrors, name: i18n.t(errorMessageKeys)});
     }
     return isValid;
   };
@@ -120,7 +94,7 @@ export const AddEntity = ({
     setLoading(true);
     const isValidForm = validateForm();
     if (!isValidForm) {
-      setErrorMessages([t('entity.form.validations.errors')]);
+      setErrorMessages([i18n.t('entity.form.validations.errors')]);
     } else {
       // dispatch( searchEntities(e) )
       // await sleep(1000)
@@ -167,11 +141,11 @@ export const AddEntity = ({
           ))}
 
           <FormControl fullWidth>
-            <InputLabel> {t<string>('entity.add.state')} </InputLabel>
+            <InputLabel> {i18n.t<string>('entity.add.state')} </InputLabel>
             <Select
               name="state"
               value={entity.state}
-              label={t<string>('entity.add.state')}
+              label={i18n.t<string>('entity.add.state')}
               // onChange={setEntityProp}
             >
               {statusOptions.map((statusOption) => (
@@ -183,7 +157,7 @@ export const AddEntity = ({
           </FormControl>
 
           <FormLabel id="demo-radio-buttons-group-label">
-            {t<string>('entity.add.gender')}
+            {i18n.t<string>('entity.add.gender')}
           </FormLabel>
           <RadioGroup
             name="gender"
@@ -217,14 +191,14 @@ export const AddEntity = ({
               variant="contained"
               type="submit"
               data-testid="save_entity_button_id">
-              {t<string>('entity.add.save')}
+              {i18n.t<string>('entity.add.save')}
             </LoadingButton>
             <Button
               variant="text"
               onClick={close}
               data-testid="close_modal_add_entity_button_id">
               {' '}
-              {t<string>('entity.add.cancel')}{' '}
+              {i18n.t<string>('entity.add.cancel')}{' '}
             </Button>
           </Stack>
         </FormGroup>
@@ -232,3 +206,5 @@ export const AddEntity = ({
     </form>
   );
 };
+
+export default AddEntity;

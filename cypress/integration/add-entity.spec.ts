@@ -1,34 +1,31 @@
-describe('Test add new entity:', () => {
-  describe('Add entity tests', () => {
-    it('Should open and close modal', () => {
-      cy.visit('/entities');
+describe('Add entity tests', () => {
+  it('Should open and close modal', () => {
+    cy.visit('/entities');
 
-      cy.getByTestId(selectors.modalAddEntity).should('not.exist');
-      cy.getByTestId(selectors.openModalButton).click();
-      cy.getByTestId(selectors.modalAddEntity).should('exist');
-      cy.getByTestId(selectors.modalAddEntity).should('be.visible');
-      cy.getByTestId(selectors.closeModalAddEntity).click();
-      cy.getByTestId(selectors.modalAddEntity).should('not.exist');
-    });
+    cy.getByTestId(selectors.modalAddEntity).should('not.exist');
+    cy.getByTestId(selectors.openModalButton).click();
+    cy.getByTestId(selectors.modalAddEntity).should('exist');
+    cy.getByTestId(selectors.modalAddEntity).should('be.visible');
+    cy.getByTestId(selectors.closeModalAddEntity).click();
+    cy.getByTestId(selectors.modalAddEntity).should('not.exist');
+  });
 
-    it('Should validate when try to save empty entity ', () => {
-      cy.visit('/entities');
+  it('Should validate when try to save empty entity ', () => {
+    cy.visit('/entities');
 
-      cy.getByTestId(selectors.openModalButton).click();
-      cy.getByTestId(selectors.saveEntityButton).click();
-      cy.getByTestId(selectors.errorMessage).should('exist');
-    });
+    cy.getByTestId(selectors.openModalButton).click();
+    cy.getByTestId(selectors.saveEntityButton).click();
+    cy.getByTestId(selectors.errorMessage).should('exist');
+  });
 
-    it('Should close modal and show success message on save', () => {
-      cy.visit('/entities');
+  it('Should close modal and show success message on save', () => {
+    cy.visit('/entities');
 
-      cy.getByTestId(selectors.openModalButton).click();
-      cy.getByTestId(selectors.fieldName).type('Some Name');
-      cy.getByTestId(selectors.saveEntityButton).click();
-      cy.getByTestId(selectors.modalAddEntity).should('not.exist');
-      cy.getByTestId(selectors.successAlert).should('exist');
-      cy.getByTestId(selectors.successAlert).should('be.visible');
-    });
+    cy.addEntity();
+    cy.getByTestId(selectors.modalAddEntity).should('not.exist');
+    cy.getByTestId(selectors.successAlert).should('exist');
+    cy.getByTestId(selectors.successAlert).should('be.visible');
+    cy.getByTestId(selectors.newEntity).should('exist');
   });
 });
 
@@ -40,4 +37,5 @@ export const selectors = {
   errorMessage: 'error_message_id_0',
   fieldName: 'name_test_id',
   successAlert: 'success_alert_test_id',
+  newEntity: 'row-entity-name-100',
 };

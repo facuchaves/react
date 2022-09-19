@@ -26,3 +26,29 @@
 Cypress.Commands.add('getByTestId', (value) => {
   return cy.get(`[data-testid=${value}]`);
 });
+
+Cypress.Commands.add('addEntity', () => {
+  cy.getByTestId(selectors.openModalButton).click();
+  cy.getByTestId(selectors.fieldName).type('Some Name');
+  cy.getByTestId(selectors.saveEntityButton).click();
+});
+
+Cypress.Commands.add('deleteEntityById', (entityToDeleteId) => {
+  cy.getByTestId(
+    `${selectors.openDeleteDialogButton}${entityToDeleteId}`,
+  ).click();
+  cy.getByTestId(selectors.agreeDeleteDialogButton).click();
+});
+
+Cypress.Commands.add('editEntityById', (entityToEditId) => {
+  cy.getByTestId(`${selectors.editEntityButton}${entityToEditId}`).click();
+});
+
+export const selectors = {
+  openModalButton: 'open_add_entity_modal_button_id',
+  saveEntityButton: 'save_entity_button_id',
+  fieldName: 'name_test_id',
+  openDeleteDialogButton: 'button-delete-entity-id-',
+  agreeDeleteDialogButton: 'agree_delete_entity_dialog_button',
+  editEntityButton: 'button-edit-entity-id-',
+};

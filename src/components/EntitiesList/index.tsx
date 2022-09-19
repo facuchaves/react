@@ -1,5 +1,4 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
 import {useLocation} from 'wouter';
 import Box from '@mui/material/Box';
 import {Grid, Paper} from '@mui/material';
@@ -24,11 +23,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import AlertTitle from '@mui/material/AlertTitle';
 import Skeleton from '@mui/material/Skeleton';
 import styled from 'styled-components';
+import i18n from 'i18next';
 import constants from '../../constants/router.constants';
 import {useAppSelector, useAppDispatch} from '../../hooks/reactReduxHooks';
 import DeleteDialog from '../DeleteDialog';
-import {AddEntity} from '../AddEntity';
-import {deleteEntity, updateEntity} from '../../features/entity/entitySlice';
+import AddEntity from '../AddEntity';
+import entitySlice, {
+  deleteEntity,
+  updateEntity,
+} from '../../features/entity/entitySlice';
 
 const style = {
   position: 'absolute',
@@ -65,41 +68,36 @@ const EntitiesListWrapper = ({children}: {children: any}) => (
 );
 
 const EntitiesList = ({query}: {query?: any}) => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [addEntityModalOpened, setAddEntityModalOpened] = React.useState(false);
+  const openAddEntityModal = () => setAddEntityModalOpened(true);
+  const closeAddEntityModal = () => setAddEntityModalOpened(false);
+
+  const [successAlertOpened, setSuccessAlertOpened] = React.useState(false);
+  const openSuccessAlert = () => setSuccessAlertOpened(true);
+  const closeSuccessAlert = () => setSuccessAlertOpened(false);
+
+  const [deleteEntityDialogOpened, setDeleteEntityDialogOpened] =
+    React.useState(false);
+
+  const openDeleteEntityDialog = () => setDeleteEntityDialogOpened(true);
+  const closeDeleteEntityDialog = () => setDeleteEntityDialogOpened(false);
+
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
-
-  const [globalSuccessAlertOpen, setGlobalSuccessAlertOpen] =
-    React.useState(false);
-  const handleGlobalSuccessAlertOpen = () => setGlobalSuccessAlertOpen(true);
-
-  const {t} = useTranslation();
-
-  const skeletonArray = Array(10).fill('');
-
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useLocation();
-  // const entities = useEntities();
+
+  const skeletonArray = Array(10).fill('');
   const entities = useAppSelector((state) => state.entity.entities);
-  const dispatch = useAppDispatch();
-  const [openDialog, setOpenDialog] = React.useState(false);
   const [currentEntity, setCurrentEntity] = React.useState({} as any);
+  const dispatch = useAppDispatch();
 
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDeleteDialog = () => {
-    setOpenDialog(false);
-  };
   if (error)
     return (
       <Box sx={{width: '100%'}}>
         <Alert severity="error">
-          <AlertTitle>{t<string>('common.error.title')}</AlertTitle>
-          {t<string>('common.error.body')}
+          <AlertTitle>{i18n.t<string>('common.error.title')}</AlertTitle>
+          {i18n.t<string>('common.error.body')}
         </Alert>
       </Box>
     );
@@ -108,19 +106,19 @@ const EntitiesList = ({query}: {query?: any}) => {
     <>
       <EntitiesListWrapper>
         <DeleteDialog
-          open={openDialog}
+          open={deleteEntityDialogOpened}
           handleAgree={() => {
             dispatch(deleteEntity(currentEntity.id));
-            handleCloseDeleteDialog();
+            closeDeleteEntityDialog();
           }}
-          handleClose={handleCloseDeleteDialog}
+          handleClose={closeDeleteEntityDialog}
         />
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>{t<string>('entity.name')}</TableCell>
-              <TableCell>{t<string>('entity.score')}</TableCell>
-              <TableCell>{t<string>('entity.actions')}</TableCell>
+              <TableCell>{i18n.t<string>('entity.name')}</TableCell>
+              <TableCell>{i18n.t<string>('entity.score')}</TableCell>
+              <TableCell>{i18n.t<string>('entity.actions')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -140,11 +138,12 @@ const EntitiesList = ({query}: {query?: any}) => {
                   </TableRow>
                 ))
               : entities.map((entity: any) => (
-                  <TableRow key={entity.id}>
+                  <TableRow
+                    key={entity.id}
+                    data-testid={`table-row-entity-id-${entity.id}`}>
                     <TableCell
                       sx={{cursor: 'pointer'}}
-                      data-testid="row-entity-id"
-                      data-entityid={entity.id}
+                      data-testid={`row-entity-name-${entity.id}`}
                       onClick={() => {
                         setLocation(constants.router.entity_prefix + entity.id);
                       }}>
@@ -154,6 +153,7 @@ const EntitiesList = ({query}: {query?: any}) => {
                     <TableCell>
                       <ArrowUpwardIcon sx={{cursor: 'pointer'}} />
                       <EditIcon
+                        data-testid={`button-edit-entity-id-${entity.id}`}
                         sx={{cursor: 'pointer'}}
                         onClick={() => {
                           dispatch(updateEntity(entity));
@@ -162,9 +162,10 @@ const EntitiesList = ({query}: {query?: any}) => {
                       />
                       <DeleteIcon
                         sx={{cursor: 'pointer'}}
+                        data-testid={`button-delete-entity-id-${entity.id}`}
                         onClick={() => {
                           setCurrentEntity(entity);
-                          handleClickOpen();
+                          openDeleteEntityDialog();
                         }}
                       />
                     </TableCell>
@@ -180,13 +181,13 @@ const EntitiesList = ({query}: {query?: any}) => {
           color="primary"
           aria-label="add"
           sx={{float: ' right'}}
-          onClick={handleOpen}>
+          onClick={openAddEntityModal}>
           <AddIcon />
         </Fab>
       </Box>
 
       <Box sx={{width: '100%'}}>
-        <Collapse in={globalSuccessAlertOpen}>
+        <Collapse in={successAlertOpened}>
           <Alert
             data-testid="success_alert_test_id"
             action={
@@ -194,31 +195,29 @@ const EntitiesList = ({query}: {query?: any}) => {
                 aria-label="close"
                 color="inherit"
                 size="small"
-                onClick={() => {
-                  setOpen(false);
-                }}>
+                onClick={closeSuccessAlert}>
                 <CloseIcon fontSize="inherit" />
               </IconButton>
             }
             sx={{mb: 2}}>
-            {t<string>('entity.add.successMessage')}
+            {i18n.t<string>('entity.add.successMessage')}
           </Alert>
         </Collapse>
       </Box>
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={addEntityModalOpened}
+        onClose={closeAddEntityModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         data-testid="modal_add_entity_test_id">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {t<string>('entity.add.modal.title')}
+            {i18n.t<string>('entity.add.modal.title')}
           </Typography>
           <StyledAddEntity
-            handleClose={handleClose}
-            handleSuccess={handleGlobalSuccessAlertOpen}
+            handleClose={closeAddEntityModal}
+            handleSuccess={openSuccessAlert}
           />
         </Box>
       </Modal>

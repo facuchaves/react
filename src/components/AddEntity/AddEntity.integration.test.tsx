@@ -2,8 +2,7 @@ import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
 import {act} from 'react-dom/test-utils';
 import {useTranslation} from 'react-i18next';
-import {useAppDispatch} from '../../hooks/reactReduxHooks';
-import {AddEntity} from '.';
+import AddEntity from '.';
 import {createEntity} from '../../services/entityService';
 
 jest.mock('../../services/entityService');
