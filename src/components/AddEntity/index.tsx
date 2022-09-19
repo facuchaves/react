@@ -133,8 +133,9 @@ export const AddEntity = ({
       // } else {
       //   setErrorMessages([t('entity.form.error.generic')]);
       // }
-      dispatch(createEntity({id: 100, name: 'Entity added', score: 99}));
+      dispatch(createEntity({id: 100, name: entity.name, score: 99}));
       handleSuccess();
+      close();
     }
     setLoading(false);
   };

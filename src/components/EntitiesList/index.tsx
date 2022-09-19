@@ -86,6 +86,7 @@ const EntitiesList = ({query}: {query?: any}) => {
   const entities = useAppSelector((state) => state.entity.entities);
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [currentEntity, setCurrentEntity] = React.useState({} as any);
 
   const handleClickOpen = () => {
     setOpenDialog(true);
@@ -110,7 +111,7 @@ const EntitiesList = ({query}: {query?: any}) => {
         <DeleteDialog
           open={openDialog}
           handleAgree={() => {
-            dispatch(deleteEntity(1));
+            dispatch(deleteEntity(currentEntity.id));
             handleCloseDeleteDialog();
           }}
           handleClose={handleCloseDeleteDialog}
@@ -163,6 +164,7 @@ const EntitiesList = ({query}: {query?: any}) => {
                       <DeleteIcon
                         sx={{cursor: 'pointer'}}
                         onClick={() => {
+                          setCurrentEntity(entity);
                           handleClickOpen();
                         }}
                       />
