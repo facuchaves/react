@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {useTranslation} from 'react-i18next';
 import {useLocation} from 'wouter';
 import Box from '@mui/material/Box';
@@ -227,6 +226,4 @@ const EntitiesList = ({query}: {query?: any}) => {
   );
 };
 
-const mapStateToProps = (state: any) => state.entitiesStore;
-
-export default connect(mapStateToProps)(EntitiesList);
+export default EntitiesList;
