@@ -2,6 +2,7 @@ import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
 import {act} from 'react-dom/test-utils';
 import {useTranslation} from 'react-i18next';
+import {useAppDispatch} from '../../hooks/reactReduxHooks';
 import {AddEntity} from '.';
 import {createEntity} from '../../services/entityService';
 
@@ -13,6 +14,12 @@ jest.mock('react-i18next', () => ({
     i18n: {
       changeLanguage: () => new Promise(() => {}),
     },
+  }),
+}));
+
+jest.mock('../../hooks/reactReduxHooks', () => ({
+  useAppDispatch: () => ({
+    dispatch: (value) => {},
   }),
 }));
 
@@ -28,8 +35,8 @@ test('Should close', () => {
     render(<AddEntity handleSuccess={() => {}} handleClose={handleClose} />);
   });
 
-  const closeButton = document.querySelector(
-    '[data-testid="close_modal_add_entity_button_id"]',
+  const closeButton = screen.getByTestId(
+    'close_modal_add_entity_button_id',
   ) as Element;
 
   act(() => {
@@ -41,7 +48,7 @@ test('Should close', () => {
 test('Should call success', async () => {
   const handleSuccess = jest.fn();
   const OK_RESPONSE = {statusCode: 200};
-  createEntity.mockReturnValue(Promise.resolve(OK_RESPONSE));
+  (createEntity as jest.Mock).mockReturnValue(Promise.resolve(OK_RESPONSE));
 
   act(() => {
     render(<AddEntity handleSuccess={handleSuccess} handleClose={() => {}} />);
@@ -53,9 +60,7 @@ test('Should call success', async () => {
 
   act(() => {
     fireEvent.change(nameField, {target: {value: 'some name'}});
-    const saveButton = document.querySelector(
-      '[data-testid="save_entity_button_id"]',
-    ) as Element;
+    const saveButton = screen.getByTestId('save_entity_button_id') as Element;
     saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
   await tick();
@@ -68,7 +73,7 @@ test('Should show error 400', async () => {
     message: ['an error message'],
     error: 'Bad Request',
   };
-  createEntity.mockReturnValue(Promise.resolve(ERROR_400));
+  (createEntity as jest.Mock).mockReturnValue(Promise.resolve(ERROR_400));
 
   act(() => {
     render(<AddEntity handleClose={() => {}} handleSuccess={() => {}} />);
@@ -80,16 +85,12 @@ test('Should show error 400', async () => {
 
   act(() => {
     fireEvent.change(nameField, {target: {value: 'some name'}});
-    const saveButton = document.querySelector(
-      '[data-testid="save_entity_button_id"]',
-    ) as Element;
+    const saveButton = screen.getByTestId('save_entity_button_id') as Element;
     saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
   await tick();
 
-  const errorMessage = document.querySelector(
-    '[data-testid="error_message_id_0"]',
-  ) as Element;
+  const errorMessage = screen.getByTestId('error_message_id_0') as Element;
   expect(errorMessage.textContent).toBe(ERROR_400.message[0]);
 });
 
@@ -99,7 +100,7 @@ test('Should show generic error 500', async () => {
   const ERROR_500 = {
     statusCode: 500,
   };
-  createEntity.mockReturnValue(Promise.resolve(ERROR_500));
+  (createEntity as jest.Mock).mockReturnValue(Promise.resolve(ERROR_500));
 
   act(() => {
     render(<AddEntity handleClose={() => {}} handleSuccess={() => {}} />);
@@ -111,15 +112,11 @@ test('Should show generic error 500', async () => {
 
   act(() => {
     fireEvent.change(nameField, {target: {value: 'some name'}});
-    const saveButton = document.querySelector(
-      '[data-testid="save_entity_button_id"]',
-    ) as Element;
+    const saveButton = screen.getByTestId('save_entity_button_id') as Element;
     saveButton.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
   await tick();
 
-  const errorMessage = document.querySelector(
-    '[data-testid="error_message_id_0"]',
-  ) as Element;
+  const errorMessage = screen.getByTestId('error_message_id_0') as Element;
   expect(errorMessage.textContent).toBe(t('entity.form.error.generic'));
 });
