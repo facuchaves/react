@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 import {useForm} from '../form/useForm';
 
 const Form = styled.form`
@@ -63,6 +64,10 @@ const SearchForm = ({handleSubmit}: {handleSubmit: (values: any) => void}) => {
       </Button>
     </Form>
   );
+};
+
+SearchForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

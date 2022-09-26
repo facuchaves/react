@@ -20,6 +20,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
+import PropTypes from 'prop-types';
 import {useAppDispatch} from '../../hooks/reactReduxHooks';
 import {createEntity} from '../../features/entity/entitySlice';
 import AddEntityMethods from './AddEntityHelper';
@@ -205,6 +206,11 @@ const AddEntity = ({
       </FormControl>
     </form>
   );
+};
+
+AddEntity.propTypes = {
+  handleSuccess: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 export default AddEntity;

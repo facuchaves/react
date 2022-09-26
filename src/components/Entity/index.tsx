@@ -4,6 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 // import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,14 @@ const Entity = ({entity}: {entity: any}) => {
       </CardContent>
     </Card>
   );
+};
+
+Entity.propTypes = {
+  entity: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Entity;

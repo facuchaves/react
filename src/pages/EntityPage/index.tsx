@@ -4,6 +4,7 @@ import React from 'react';
 // import Box from '@mui/material/Box';
 // import ErrorIcon from '@mui/icons-material/Error';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import useEntity from '../../hooks/useEntity';
 import Entity from '../../components/Entity';
 
@@ -32,6 +33,12 @@ const EntityPage = ({params}: {params: {id: number}}) => {
       <Entity entity={entity} />
     </EntityDiv>
   );
+};
+
+EntityPage.propTypes = {
+  params: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default EntityPage;
