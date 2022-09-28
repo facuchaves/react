@@ -7,7 +7,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import Stack from '@mui/material/Stack';
 import styled from 'styled-components';
 import {useTranslation} from 'react-i18next';
-import PropTypes from 'prop-types';
 import {useForm} from '../form/useForm';
 
 const Form = styled.form`
@@ -20,14 +19,14 @@ const initialFValues = {
   state: 'OPEN',
 };
 
-const SearchForm = ({handleSubmit}: {handleSubmit: (values: any) => void}) => {
+const SearchForm = () => {
   const {t} = useTranslation();
 
   const {values, handleInputChange} = useForm(initialFValues, true, () => {});
 
   const handleSubmitInternal = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleSubmit(values);
+    // handleSubmit(values);
   };
 
   const handleSwitchChange = (event: any) => {
@@ -64,10 +63,6 @@ const SearchForm = ({handleSubmit}: {handleSubmit: (values: any) => void}) => {
       </Button>
     </Form>
   );
-};
-
-SearchForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

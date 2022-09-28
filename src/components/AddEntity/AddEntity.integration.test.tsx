@@ -18,7 +18,8 @@ jest.mock('react-i18next', () => ({
 
 jest.mock('../../hooks/reactReduxHooks', () => ({
   useAppDispatch: () => ({
-    dispatch: (value) => {},
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    dispatch: (_value: any) => {},
   }),
 }));
 

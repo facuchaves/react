@@ -15,9 +15,7 @@ const EntityDiv = styled.div`
   margin: '0 auto';
 `;
 
-const EntityPage = ({params}: {params: {id: number}}) => {
-  const {id} = params;
-
+const EntityPage = ({id}: {id: string}) => {
   // if (loading) return (
   //   <Box sx={{ width: '100%' }}>
   //     <LinearProgress />
@@ -25,8 +23,7 @@ const EntityPage = ({params}: {params: {id: number}}) => {
   // );
 
   // if (error) return <ErrorIcon/>;
-
-  const entity = useEntity(id);
+  const entity = useEntity(parseInt(id, 10));
 
   return (
     <EntityDiv>
@@ -36,9 +33,7 @@ const EntityPage = ({params}: {params: {id: number}}) => {
 };
 
 EntityPage.propTypes = {
-  params: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default EntityPage;
