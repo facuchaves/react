@@ -1,6 +1,4 @@
 import * as React from 'react';
-import {styled} from '@mui/material/styles';
-import MuiAppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -8,18 +6,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import i18n from 'i18next';
-
-// const drawerWidth = 240;
-
-const StyledAppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({theme}) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-}));
+import ToggleColorMode from '../ToggleColorMode';
+import StyledAppBar from './styles';
 
 const AppBar = ({
   open,
@@ -52,6 +40,7 @@ const AppBar = ({
         sx={{flexGrow: 1}}>
         {i18n.t<string>('appbar.dashboard')}
       </Typography>
+      <ToggleColorMode />
       <IconButton color="inherit">
         <Badge badgeContent={4} color="secondary">
           <NotificationsIcon />

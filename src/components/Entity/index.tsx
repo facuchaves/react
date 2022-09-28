@@ -1,23 +1,10 @@
 import React from 'react';
-import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-// import {useTranslation} from 'react-i18next';
 import PropTypes from 'prop-types';
+import useStyles from './styles';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      minWidth: 275,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  }),
-);
-
-// const {t} = useTranslation();
 const Entity = ({entity}: {entity: any}) => {
   const classes = useStyles();
   return (

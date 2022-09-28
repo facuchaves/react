@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,8 +8,7 @@ import Paper from '@mui/material/Paper';
 import SideBar from './Sidebar';
 import AppBar from './AppBar';
 import Copyright from './Copyright';
-
-const mdTheme = createTheme();
+import {ColorModeContextProvider} from '../context/ColorModeContex';
 
 const DashboardBody = ({children}: {children: any}) => (
   <Box
@@ -45,14 +43,14 @@ const DashboardContent = ({children}: {children: any}) => {
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    <ColorModeContextProvider>
       <Box sx={{display: 'flex'}}>
         <CssBaseline />
         <AppBar open={open} toggleDrawer={toggleDrawer} />
         <SideBar open={open} toggleDrawer={toggleDrawer} />
         <DashboardBody>{children}</DashboardBody>
       </Box>
-    </ThemeProvider>
+    </ColorModeContextProvider>
   );
 };
 

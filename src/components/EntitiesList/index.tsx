@@ -22,35 +22,12 @@ import CloseIcon from '@mui/icons-material/Close';
 // import {gql, useQuery} from '@apollo/client';
 import AlertTitle from '@mui/material/AlertTitle';
 import Skeleton from '@mui/material/Skeleton';
-import styled from 'styled-components';
 import i18n from 'i18next';
 import constants from '../../constants/router.constants';
 import {useAppSelector, useAppDispatch} from '../../hooks/reactReduxHooks';
 import DeleteDialog from '../DeleteDialog';
-import AddEntity from '../AddEntity';
-import entitySlice, {
-  deleteEntity,
-  updateEntity,
-} from '../../features/entity/entitySlice';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
-const StyledAddEntity = styled(AddEntity)`
-  width: '80%';
-  padding: 20;
-  display: 'inline';
-  margin: '0 auto';
-`;
+import {deleteEntity, updateEntity} from '../../features/entity/entitySlice';
+import {style, StyledAddEntity} from './styles';
 
 const EntitiesListWrapper = ({children}: {children: any}) => (
   <Grid item xs={12}>
