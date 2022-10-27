@@ -24,10 +24,14 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Skeleton from '@mui/material/Skeleton';
 import i18n from 'i18next';
 import constants from '../../constants/router.constants';
-import {useAppSelector, useAppDispatch} from '../../hooks/reactReduxHooks';
 import DeleteDialog from '../DeleteDialog';
-import {deleteEntity, updateEntity} from '../../features/entity/entitySlice';
+import {
+  deleteEntity,
+  EntityStatus,
+  updateEntity,
+} from '../../features/entity/entitySlice';
 import {style, StyledAddEntity} from './styles';
+import useEntities from '../../hooks/useEntities';
 
 const EntitiesListWrapper = ({children}: {children: any}) => (
   <Grid item xs={12}>
@@ -59,17 +63,16 @@ const EntitiesList = ({query}: {query?: any}) => {
   const openDeleteEntityDialog = () => setDeleteEntityDialogOpened(true);
   const closeDeleteEntityDialog = () => setDeleteEntityDialogOpened(false);
 
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(false);
   // eslint-disable-next-line no-unused-vars
   const [location, setLocation] = useLocation();
 
-  const skeletonArray = Array(10).fill('');
-  const entities = useAppSelector((state) => state.entity.entities);
-  const [currentEntity, setCurrentEntity] = React.useState({} as any);
-  const dispatch = useAppDispatch();
+  const skeletonArray = [...Array(10).keys()];
+  const {status, entities, dispatch} = useEntities();
+  const loading = [EntityStatus.IDLE, EntityStatus.LOADING].includes(status);
 
-  if (error)
+  const [currentEntity, setCurrentEntity] = React.useState({} as any);
+
+  if (EntityStatus.ERROR === status)
     return (
       <Box sx={{width: '100%'}}>
         <Alert severity="error">
@@ -100,8 +103,8 @@ const EntitiesList = ({query}: {query?: any}) => {
           </TableHead>
           <TableBody>
             {loading
-              ? skeletonArray.map(() => (
-                  <TableRow>
+              ? skeletonArray.map((skeletonElem: number) => (
+                  <TableRow key={skeletonElem}>
                     <TableCell sx={{cursor: 'pointer'}}>
                       <Skeleton variant="text" sx={{fontSize: '1rem'}} />
                     </TableCell>
@@ -116,7 +119,7 @@ const EntitiesList = ({query}: {query?: any}) => {
                 ))
               : entities.map((entity: any) => (
                   <TableRow
-                    key={entity.id}
+                    key={entity.entity_id}
                     data-testid={`table-row-entity-id-${entity.id}`}>
                     <TableCell
                       sx={{cursor: 'pointer'}}

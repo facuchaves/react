@@ -1,8 +1,7 @@
 import React from 'react';
-// import {gql, useQuery} from '@apollo/client';
-// import LinearProgress from '@mui/material/LinearProgress';
-// import Box from '@mui/material/Box';
-// import ErrorIcon from '@mui/icons-material/Error';
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
+import ErrorIcon from '@mui/icons-material/Error';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useEntity from '../../hooks/useEntity';
@@ -16,14 +15,16 @@ const EntityDiv = styled.div`
 `;
 
 const EntityPage = ({id}: {id: string}) => {
-  // if (loading) return (
-  //   <Box sx={{ width: '100%' }}>
-  //     <LinearProgress />
-  //   </Box>
-  // );
+  const {loading, error, entity} = useEntity(parseInt(id, 10));
 
-  // if (error) return <ErrorIcon/>;
-  const entity = useEntity(parseInt(id, 10));
+  if (loading)
+    return (
+      <Box sx={{width: '100%'}}>
+        <LinearProgress />
+      </Box>
+    );
+
+  if (error) return <ErrorIcon />;
 
   return (
     <EntityDiv>

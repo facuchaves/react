@@ -21,7 +21,7 @@ import FormLabel from '@mui/material/FormLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import PropTypes from 'prop-types';
-import {useAppDispatch} from '../../hooks/reactReduxHooks';
+import {useEntityDispatch} from '../../hooks/reactReduxHooks';
 import {createEntity} from '../../features/entity/entitySlice';
 import AddEntityMethods from './AddEntityHelper';
 import {genderOptions, skillsOptions, statusOptions} from './staticData';
@@ -56,7 +56,7 @@ const AddEntity = ({
     state: 'pending',
   } as any);
 
-  const dispatch = useAppDispatch();
+  const dispatch = useEntityDispatch();
 
   const validateName = (name: string) => {
     const [isValid, errorMessageKeys] = AddEntityMethods().validateName(name);

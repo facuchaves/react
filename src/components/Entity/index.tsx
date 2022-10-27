@@ -11,7 +11,7 @@ const Entity = ({entity}: {entity: any}) => {
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2" className={classes.pos}>
-          #{entity?.id}
+          #{entity?.entity_id}
         </Typography>
         <Typography variant="h5" component="h2" className={classes.pos}>
           {entity?.name}
@@ -26,7 +26,7 @@ const Entity = ({entity}: {entity: any}) => {
 
 Entity.propTypes = {
   entity: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    entity_id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     score: PropTypes.number.isRequired,
   }).isRequired,

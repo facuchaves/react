@@ -1,42 +1,31 @@
 /* eslint-disable no-param-reassign */
-import {createSlice} from '@reduxjs/toolkit';
-import type {RootState} from '../../store';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {getEntities} from '../../services/entityService';
+// import type {RootState} from '../../store';
 
-// Define a type for the slice state
-interface EntityState {
-  entities: Array<any>;
+export enum EntityStatus {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  ERROR = 'error',
+  SUCCESS = 'success',
 }
 
-// Define the initial state using that type
+interface EntityState {
+  entities: Array<any>;
+  status: EntityStatus;
+}
+
 const initialState: EntityState = {
-  entities: [
-    {id: 1, name: 'Dave Patrick', score: 10},
-    {id: 2, name: 'Peter Pretrelli', score: 20},
-    {id: 3, name: 'John Week', score: 30},
-    {id: 4, name: 'David Coperfield', score: 40},
-    {id: 5, name: 'Diego Bounanote', score: 50},
-  ],
+  entities: [],
+  status: EntityStatus.IDLE,
 };
+
+export const getAll = createAsyncThunk(`entities/getAll`, getEntities);
 
 export const entitySlice = createSlice({
   name: 'entity',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   state.value += 1;
-    // },
-    // decrement: (state) => {
-    //   state.value -= 1;
-    // },
-    // // Use the PayloadAction type to declare the contents of `action.payload`
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload;
-    // },
-    // searchEntities : (state, action) => {
-    //   // state.entities
-    // },searchEntity : (state, action) => {
-    // },
     createEntity: (state, {payload}) => {
       state.entities.push(payload);
     },
@@ -59,11 +48,24 @@ export const entitySlice = createSlice({
       }
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(getAll.pending, (state, action) => {
+        state.status = EntityStatus.LOADING;
+      })
+      .addCase(getAll.fulfilled, (state, action) => {
+        state.status = EntityStatus.SUCCESS;
+        state.entities = action.payload;
+      })
+      .addCase(getAll.rejected, (state, action) => {
+        state.status = EntityStatus.ERROR;
+      });
+  },
 });
 
 export const {createEntity, updateEntity, deleteEntity} = entitySlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.entity.entities;
+// export const selectEntity = (state: RootState) => state.entity;
 
 export default entitySlice.reducer;

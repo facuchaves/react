@@ -1,4 +1,6 @@
 // require('dotenv').config();
+// import sleep from '../utils';
+const axios = require('axios').default;
 
 let entities = [
   {id: 1, name: 'Dave Patrick', score: 10},
@@ -13,12 +15,13 @@ let entities = [
 ];
 
 export const getEntities = async () =>
-  // const urlGetEntities = `${process.env.REACT_APP_BASE_URL_APIREST}/api/resource`;
-  // return fetch(urlGetEntities).then((res: any) => res.json());
-  entities;
+  axios
+    .get(`${process.env.REACT_APP_BASE_URL_APIREST}/api/resource`)
+    .then((res: any) => res.data);
 
-export const getEntity = async (entityId: number) =>
-  (await getEntities()).find((entity) => entity.id === entityId);
+export const getEntity = async (entityId: number) => {
+  (await getEntities()).find((entity: any) => entity.entity_id === entityId);
+};
 
 // const urlGetEntity = `${process.env.REACT_APP_BASE_URL_APIREST}/api/resource/${entityId}`;
 // return fetch(urlGetEntity).then((res: any) => res.json());
