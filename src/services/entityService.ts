@@ -19,9 +19,8 @@ export const getEntities = async () =>
     .get(`${process.env.REACT_APP_BASE_URL_APIREST}/api/resource`)
     .then((res: any) => res.data);
 
-export const getEntity = async (entityId: number) => {
+export const getEntity = async (entityId: number) =>
   (await getEntities()).find((entity: any) => entity.entity_id === entityId);
-};
 
 // const urlGetEntity = `${process.env.REACT_APP_BASE_URL_APIREST}/api/resource/${entityId}`;
 // return fetch(urlGetEntity).then((res: any) => res.json());
@@ -68,7 +67,7 @@ export const deleteEntity = async (entityIdTodelete: number) => {
   const existingEntity = await getEntity(entityIdTodelete);
   if (existingEntity) {
     entities = (await getEntities()).filter(
-      (entity) => entity.id !== entityIdTodelete,
+      (entity: any) => entity.id !== entityIdTodelete,
     );
   }
 };
