@@ -33,6 +33,7 @@ import {
 import {style, StyledAddEntity} from './styles';
 import useEntities from '../../hooks/useEntities';
 import SkeletonRow from './skeletonRow';
+import EntityRow from './entityRow';
 
 const EntitiesListWrapper = ({children}: {children: any}) => (
   <Grid item xs={12}>
@@ -108,38 +109,23 @@ const EntitiesList = ({query}: {query?: any}) => {
                   <SkeletonRow key={skeletonElem} />
                 ))
               : entities.map((entity: any) => (
-                  <TableRow
+                  <EntityRow
                     key={entity.id}
-                    data-testid={`table-row-entity-id-${entity.id}`}>
-                    <TableCell
-                      sx={{cursor: 'pointer'}}
-                      data-testid={`row-entity-name-${entity.id}`}
-                      onClick={() => {
-                        setLocation(constants.router.entity_prefix + entity.id);
-                      }}>
-                      {entity.name}
-                    </TableCell>
-                    <TableCell>{entity.score}</TableCell>
-                    <TableCell>
-                      <ArrowUpwardIcon sx={{cursor: 'pointer'}} />
-                      <EditIcon
-                        data-testid={`button-edit-entity-id-${entity.id}`}
-                        sx={{cursor: 'pointer'}}
-                        onClick={() => {
-                          dispatch(updateEntity(entity));
-                          // setLocation(constants.router.entity_prefix + entity.id);
-                        }}
-                      />
-                      <DeleteIcon
-                        sx={{cursor: 'pointer'}}
-                        data-testid={`button-delete-entity-id-${entity.id}`}
-                        onClick={() => {
-                          setCurrentEntity(entity);
-                          openDeleteEntityDialog();
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
+                    entity={entity}
+                    onClick={(entityParam) => {
+                      setLocation(
+                        constants.router.entity_prefix + entityParam.id,
+                      );
+                    }}
+                    onEdit={(entityParam) => {
+                      dispatch(updateEntity(entityParam));
+                      // setLocation(constants.router.entity_prefix + entity.id);
+                    }}
+                    onDelete={(entityParam) => {
+                      setCurrentEntity(entityParam);
+                      openDeleteEntityDialog();
+                    }}
+                  />
                 ))}
           </TableBody>
         </Table>
