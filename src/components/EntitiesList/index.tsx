@@ -32,6 +32,7 @@ import {
 } from '../../features/entity/entitySlice';
 import {style, StyledAddEntity} from './styles';
 import useEntities from '../../hooks/useEntities';
+import SkeletonRow from './skeletonRow';
 
 const EntitiesListWrapper = ({children}: {children: any}) => (
   <Grid item xs={12}>
@@ -104,18 +105,7 @@ const EntitiesList = ({query}: {query?: any}) => {
           <TableBody>
             {loading
               ? skeletonArray.map((skeletonElem: number) => (
-                  <TableRow key={skeletonElem}>
-                    <TableCell sx={{cursor: 'pointer'}}>
-                      <Skeleton variant="text" sx={{fontSize: '1rem'}} />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton variant="text" sx={{fontSize: '1rem'}} />
-                    </TableCell>
-                    <TableCell>
-                      {' '}
-                      <Skeleton variant="text" sx={{fontSize: '1rem'}} />
-                    </TableCell>
-                  </TableRow>
+                  <SkeletonRow key={skeletonElem} />
                 ))
               : entities.map((entity: any) => (
                   <TableRow
