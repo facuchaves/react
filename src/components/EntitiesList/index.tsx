@@ -119,7 +119,7 @@ const EntitiesList = ({query}: {query?: any}) => {
                 ))
               : entities.map((entity: any) => (
                   <TableRow
-                    key={entity.entity_id}
+                    key={entity.id}
                     data-testid={`table-row-entity-id-${entity.id}`}>
                     <TableCell
                       sx={{cursor: 'pointer'}}
