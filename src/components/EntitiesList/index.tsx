@@ -1,13 +1,5 @@
 import React from 'react';
 import {useLocation} from 'wouter';
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
-import i18n from 'i18next';
 import constants from '../../constants/router.constants';
 import DeleteDialog from '../DeleteDialog';
 import {
@@ -19,6 +11,8 @@ import useEntities from '../../hooks/useEntities';
 import EntitiesTable from './entityTable';
 import EntitiesError from './entitiesError';
 import AddEntityModal from './addEntityModal';
+import SuccessAlert from './successAlert';
+import OpenAddEntityModalButton from './openAddEntityModalButton';
 
 const EntitiesList = ({query}: {query?: any}) => {
   const [addEntityModalOpened, setAddEntityModalOpened] = React.useState(false);
@@ -69,35 +63,9 @@ const EntitiesList = ({query}: {query?: any}) => {
         handleClose={() => closeDeleteEntityDialog()}
       />
 
-      <Box sx={{'& > :not(style)': {m: 1}}}>
-        <Fab
-          data-testid="open_add_entity_modal_button_id"
-          color="primary"
-          aria-label="add"
-          sx={{float: ' right'}}
-          onClick={openAddEntityModal}>
-          <AddIcon />
-        </Fab>
-      </Box>
+      <OpenAddEntityModalButton onClick={openAddEntityModal} />
 
-      <Box sx={{width: '100%'}}>
-        <Collapse in={successAlertOpened}>
-          <Alert
-            data-testid="success_alert_test_id"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={closeSuccessAlert}>
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-            sx={{mb: 2}}>
-            {i18n.t<string>('entity.add.successMessage')}
-          </Alert>
-        </Collapse>
-      </Box>
+      <SuccessAlert />
 
       <AddEntityModal
         addEntityModalOpened={addEntityModalOpened}
