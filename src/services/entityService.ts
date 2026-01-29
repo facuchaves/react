@@ -14,10 +14,10 @@ let entities = [
   {id: 9, name: 'Julio Cesar', score: 90},
 ];
 
-export const getEntities = async () =>
-  axios
-    .get(`${process.env.REACT_APP_BASE_URL_APIREST}/api/resource`)
-    .then((res: any) => res.data);
+export const getEntities = async () => entities;
+// axios
+//   .get(`${process.env.REACT_APP_BASE_URL_APIREST}/api/resource`)
+//   .then((res: any) => res.data);
 
 export const getEntity = async (entityId: number) =>
   (await getEntities()).find((entity: any) => entity.entity_id === entityId);
