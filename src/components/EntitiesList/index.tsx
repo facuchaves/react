@@ -65,7 +65,10 @@ const EntitiesList = ({query}: {query?: any}) => {
 
       <OpenAddEntityModalButton onClick={openAddEntityModal} />
 
-      <SuccessAlert />
+      <SuccessAlert
+        successAlertOpened={successAlertOpened}
+        closeSuccessAlert={closeSuccessAlert}
+      />
 
       <AddEntityModal
         addEntityModalOpened={addEntityModalOpened}
