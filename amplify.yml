@@ -11,10 +11,10 @@ frontend:
       commands:
         - nvm install 16
         - nvm use 16
-        - yarn install --frozen-lockfile
+        - npm ci
     build:
       commands:
-        - yarn run build
+        - npm run build
   artifacts:
     baseDirectory: build
     files:
