@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchForm from '../../components/SearchForm';
-import EntitiesList from '../../components/EntitiesList';
+import EntitiesList from '../../entities/list';
 
 const EntitiesPage = () => (
   <>

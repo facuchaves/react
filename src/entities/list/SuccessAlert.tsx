@@ -7,13 +7,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import i18n from 'i18next';
 
 type Props = {
-  successAlertOpened: any;
-  closeSuccessAlert: any;
+  open: boolean;
+  onClose: () => void;
 };
 
-const SuccessAlert = ({successAlertOpened, closeSuccessAlert}: Props) => (
+const SuccessAlert = ({open, onClose}: Props) => (
   <Box sx={{width: '100%'}}>
-    <Collapse in={successAlertOpened}>
+    <Collapse in={open}>
       <Alert
         data-testid="success_alert_test_id"
         action={
@@ -21,7 +21,7 @@ const SuccessAlert = ({successAlertOpened, closeSuccessAlert}: Props) => (
             aria-label="close"
             color="inherit"
             size="small"
-            onClick={closeSuccessAlert}>
+            onClick={onClose}>
             <CloseIcon fontSize="inherit" />
           </IconButton>
         }

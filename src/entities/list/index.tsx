@@ -1,18 +1,18 @@
 import React from 'react';
 import {useLocation} from 'wouter';
 import constants from '../../constants/router.constants';
-import DeleteDialog from '../DeleteDialog';
+import {DeleteDialog} from '../delete';
 import {
   deleteEntity,
   EntityStatus,
   updateEntity,
 } from '../../features/entity/entitySlice';
 import useEntities from '../../hooks/useEntities';
-import EntitiesTable from './entityTable';
-import EntitiesError from './entitiesError';
-import AddEntityModal from './addEntityModal';
-import SuccessAlert from './successAlert';
-import OpenAddEntityModalButton from './openAddEntityModalButton';
+import EntitiesTable from './EntityTable';
+import EntitiesError from './EntitiesError';
+import {AddEntityModal} from '../add';
+import SuccessAlert from './SuccessAlert';
+import OpenAddEntityModalButton from './OpenAddEntityModalButton';
 
 const EntitiesList = ({query}: {query?: any}) => {
   const [addEntityModalOpened, setAddEntityModalOpened] = React.useState(false);
@@ -46,7 +46,7 @@ const EntitiesList = ({query}: {query?: any}) => {
         loading={loading}
         onRowClick={(id) => setLocation(constants.router.entity_prefix + id)}
         onEdit={(entity) => dispatch(updateEntity(entity))}
-        onDelete={(entity) => {
+        onDelete={(entity: any) => {
           setCurrentEntity(entity);
           openDeleteEntityDialog();
         }}
@@ -65,15 +65,12 @@ const EntitiesList = ({query}: {query?: any}) => {
 
       <OpenAddEntityModalButton onClick={openAddEntityModal} />
 
-      <SuccessAlert
-        successAlertOpened={successAlertOpened}
-        closeSuccessAlert={closeSuccessAlert}
-      />
+      <SuccessAlert open={successAlertOpened} onClose={closeSuccessAlert} />
 
       <AddEntityModal
-        addEntityModalOpened={addEntityModalOpened}
-        closeAddEntityModal={closeAddEntityModal}
-        openSuccessAlert={openSuccessAlert}
+        open={addEntityModalOpened}
+        onClose={closeAddEntityModal}
+        onSuccess={openSuccessAlert}
       />
     </>
   );

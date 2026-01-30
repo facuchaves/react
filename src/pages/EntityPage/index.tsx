@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useEntity from '../../hooks/useEntity';
-import Entity from '../../components/Entity';
+import Entity from '../../entities/view';
 
 const EntityDiv = styled.div`
   width: '80%';

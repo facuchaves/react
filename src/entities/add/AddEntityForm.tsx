@@ -20,7 +20,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormLabel from '@mui/material/FormLabel';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
-import PropTypes from 'prop-types';
 import {useEntityDispatch} from '../../hooks/reactReduxHooks';
 import {createEntity} from '../../features/entity/entitySlice';
 import AddEntityMethods from './AddEntityHelper';
@@ -40,13 +39,12 @@ import {genderOptions, skillsOptions, statusOptions} from './staticData';
 
 // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const AddEntity = ({
-  handleSuccess,
-  handleClose,
-}: {
-  handleSuccess: () => void;
-  handleClose: () => void;
-}) => {
+type Props = {
+  onSuccess: () => void;
+  onClose: () => void;
+};
+
+const AddEntityForm = ({onSuccess, onClose}: Props) => {
   // const classes = useStyles();
   const [fieldErrors, setFieldErrors] = useState({} as any);
   const [errorMessages, setErrorMessages] = useState([] as string[]);
@@ -54,6 +52,7 @@ const AddEntity = ({
   const [entity, setEntity] = useState({
     name: '',
     state: 'pending',
+    gender: '',
   } as any);
 
   const dispatch = useEntityDispatch();
@@ -86,7 +85,7 @@ const AddEntity = ({
   };
 
   const close = () => {
-    handleClose();
+    onClose();
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -109,7 +108,7 @@ const AddEntity = ({
       //   setErrorMessages([t('entity.form.error.generic')]);
       // }
       dispatch(createEntity({id: 100, name: entity.name, score: 99}));
-      handleSuccess();
+      onSuccess();
       close();
     }
     setLoading(false);
@@ -208,9 +207,4 @@ const AddEntity = ({
   );
 };
 
-AddEntity.propTypes = {
-  handleSuccess: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-};
-
-export default AddEntity;
+export default AddEntityForm;

@@ -6,17 +6,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import i18n from 'i18next';
-import PropTypes from 'prop-types';
 
-const DeleteDialog = ({
-  open,
-  handleAgree,
-  handleClose,
-}: {
+type Props = {
   open: boolean;
   handleAgree: () => void;
   handleClose: () => void;
-}) => (
+};
+
+const DeleteDialog = ({open, handleAgree, handleClose}: Props) => (
   <Dialog
     open={open}
     onClose={handleClose}
@@ -45,11 +42,5 @@ const DeleteDialog = ({
     </DialogActions>
   </Dialog>
 );
-
-DeleteDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleAgree: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired,
-};
 
 export default DeleteDialog;
