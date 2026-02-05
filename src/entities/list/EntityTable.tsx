@@ -1,5 +1,6 @@
 import React from 'react';
-import {Grid, Paper} from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,8 +24,8 @@ type Props = {
   onDelete: (entity: Entity) => void;
 };
 
-const EntitiesListWrapper = ({children}: {children: any}) => (
-  <Grid item xs={12}>
+const EntitiesListWrapper = ({children}: {children: React.ReactNode}) => (
+  <Grid size={{xs: 12}}>
     <Paper
       sx={{
         p: 2,
@@ -61,7 +62,7 @@ const EntitiesTable = ({
           ? skeletonArray.map((skeletonElem: number) => (
               <SkeletonRow key={skeletonElem} />
             ))
-          : entities.map((entity: any) => (
+          : entities.map((entity: Entity) => (
               <EntityRow
                 key={entity.id}
                 entity={entity}

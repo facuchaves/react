@@ -1,26 +1,36 @@
 import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import Typography, {TypographyProps} from '@mui/material/Typography';
 import PropTypes from 'prop-types';
-import useStyles from './styles';
+// import useStyles from './styles';
+import {styled} from '@mui/material/styles';
+
+// Reemplaza useStyles con styled
+const StyledCard = styled(Card)(({theme}) => ({
+  minWidth: 275,
+}));
+
+const PosTypography = styled(Typography)<TypographyProps>(({theme}) => ({
+  marginBottom: 12,
+}));
 
 const Entity = ({entity}: {entity: any}) => {
-  const classes = useStyles();
+  // const classes = useStyles();
   return (
-    <Card className={classes.root}>
+    <StyledCard>
       <CardContent>
-        <Typography variant="h5" component="h2" className={classes.pos}>
+        <PosTypography variant="h5" component="h2">
           #{entity?.entity_id}
-        </Typography>
-        <Typography variant="h5" component="h2" className={classes.pos}>
+        </PosTypography>
+        <PosTypography variant="h5" component="h2">
           {entity?.name}
-        </Typography>
-        <Typography variant="h5" component="h2" className={classes.pos}>
+        </PosTypography>
+        <PosTypography variant="h5" component="h2">
           {entity?.score}
-        </Typography>
+        </PosTypography>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };
 

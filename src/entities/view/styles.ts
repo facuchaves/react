@@ -1,14 +1,7 @@
-import {makeStyles, createStyles} from '@material-ui/core/styles';
+import {styled} from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      minWidth: 275,
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  }),
-);
-
-export default useStyles;
+export const RootPaper = styled(Paper)(({theme}) => ({
+  minWidth: 275,
+  marginBottom: 12, //theme.spacing(1.5), // equivalente a 12px si spacing = 8
+}));

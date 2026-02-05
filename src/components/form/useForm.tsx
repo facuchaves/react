@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {makeStyles} from '@material-ui/core';
+import {styled} from '@mui/material/styles';
 
 export const useForm = (
   initialFValues: any,
@@ -28,22 +28,18 @@ export const useForm = (
   return {values, setValues, errors, setErrors, handleInputChange, resetForm};
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiFormControl-root': {
-      width: '80%',
-      margin: theme.spacing(1),
-    },
+const StyledForm = styled('form')(({theme}) => ({
+  '& .MuiFormControl-root': {
+    width: '80%',
+    margin: theme.spacing(1),
   },
 }));
 
 export function Form(props: any) {
-  const classes = useStyles();
   const {children, ...other} = props;
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <form className={classes.root} autoComplete="off" {...other}>
+    <StyledForm autoComplete="off" {...other}>
       {children}
-    </form>
+    </StyledForm>
   );
 }

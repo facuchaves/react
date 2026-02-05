@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import SideBar from './Sidebar';
 import AppBar from './AppBar';
@@ -25,7 +25,7 @@ const DashboardBody = ({children}: {children: any}) => (
     <Toolbar />
     <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid size={{xs: 12}}>
           <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
             {children}
           </Paper>

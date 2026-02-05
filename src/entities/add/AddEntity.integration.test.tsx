@@ -2,7 +2,7 @@ import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
 import {act} from 'react-dom/test-utils';
 import {useTranslation} from 'react-i18next';
-import AddEntity from './AddEntity';
+import AddEntityForm from './AddEntityForm';
 import {createEntity} from '../../services/entityService';
 
 jest.mock('../../services/entityService');
@@ -32,7 +32,7 @@ test('Should close', () => {
   const handleClose = jest.fn();
 
   act(() => {
-    render(<AddEntity handleSuccess={() => {}} handleClose={handleClose} />);
+    render(<AddEntityForm onSuccess={() => {}} onClose={handleClose} />);
   });
 
   const closeButton = screen.getByTestId(
@@ -51,7 +51,7 @@ test('Should call success', async () => {
   (createEntity as jest.Mock).mockReturnValue(Promise.resolve(OK_RESPONSE));
 
   act(() => {
-    render(<AddEntity handleSuccess={handleSuccess} handleClose={() => {}} />);
+    render(<AddEntityForm onSuccess={handleSuccess} onClose={() => {}} />);
   });
 
   const nameField = document.querySelector(
@@ -76,7 +76,7 @@ test('Should show error 400', async () => {
   (createEntity as jest.Mock).mockReturnValue(Promise.resolve(ERROR_400));
 
   act(() => {
-    render(<AddEntity handleClose={() => {}} handleSuccess={() => {}} />);
+    render(<AddEntityForm onClose={() => {}} onSuccess={() => {}} />);
   });
 
   const nameField = document.querySelector(
@@ -103,7 +103,7 @@ test('Should show generic error 500', async () => {
   (createEntity as jest.Mock).mockReturnValue(Promise.resolve(ERROR_500));
 
   act(() => {
-    render(<AddEntity handleClose={() => {}} handleSuccess={() => {}} />);
+    render(<AddEntityForm onClose={() => {}} onSuccess={() => {}} />);
   });
 
   const nameField = document.querySelector(

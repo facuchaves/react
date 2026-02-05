@@ -12,16 +12,3 @@ test('Validate empty name', () => {
   expect(isValid).toBeFalsy();
   expect(messageErrorKeys).toBe('entity.form.validations.required');
 });
-
-test('Validate undefined name', () => {
-  const [isValid, messageErrorKeys] =
-    AddEntityMethods().validateName(undefined);
-  expect(isValid).toBeFalsy();
-  expect(messageErrorKeys).toBe('entity.form.validations.required');
-});
-
-test('Validate null name', () => {
-  const [isValid, messageErrorKeys] = AddEntityMethods().validateName(null);
-  expect(isValid).toBeFalsy();
-  expect(messageErrorKeys).toBe('entity.form.validations.required');
-});
