@@ -9,7 +9,7 @@ const tick = () =>
   });
 
 test('Should close', async () => {
-  const handleClose = jest.fn();
+  const handleClose = vi.fn();
 
   act(() => {
     render(
@@ -30,7 +30,7 @@ test('Should close', async () => {
 });
 
 test('Should call success', async () => {
-  const handleAgree = jest.fn();
+  const handleAgree = vi.fn();
 
   act(() => {
     render(

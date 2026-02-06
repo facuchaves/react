@@ -1,6 +1,6 @@
 // require('dotenv').config();
 // import sleep from '../utils';
-const axios = require('axios').default;
+import axios from 'axios';
 
 let entities = [
   {id: 1, name: 'Dave Patrick', score: 10},

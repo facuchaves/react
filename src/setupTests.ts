@@ -4,3 +4,11 @@
 // learn more: https://github.com/testing-library/jest-dom
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@testing-library/jest-dom';
+
+// jest.mock('axios', () => ({
+//   default: {
+//     get: jest.fn(),
+//     post: jest.fn(),
+//     // añade los métodos que uses
+//   },
+// }));

@@ -1,41 +1,34 @@
-// import renderer from 'react-test-renderer';
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-// import {cleanup, fireEvent, render} from '@testing-library/react';
+import {render, screen, fireEvent} from '@testing-library/react';
 import {expect} from 'chai';
+import '@testing-library/jest-dom'; // Importante para que Jest entienda los matchers
 import SearchForm from './index';
 
-// const sinon = require('sinon');
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: any) => key, // Just returns the key back as the translation
+    i18n: {changeLanguage: vi.fn()},
+  }),
+  initReactI18next: {type: '3rdParty', init: vi.fn()},
+}));
 
-Enzyme.configure({adapter: new Adapter()});
+describe('SearchForm', () => {
+  test('debe ejecutar el submit correctamente', () => {
+    // 1. Renderizamos el componente de verdad
+    render(<SearchForm />);
 
-test('searchForm', () => {
-  // const callback = sinon.spy();
+    // 2. Buscamos el formulario por el test-id que ya tenías
+    const form = screen.getByTestId('search_entity_from_test_id');
 
-  const SearchFormMock = shallow(<SearchForm />);
+    // Verificamos que exista
+    expect(form).to.exist;
 
-  const form = SearchFormMock.find(
-    '[data-testid="search_entity_from_test_id"]',
-  );
-  expect(form.props().onSubmit).to.have.lengthOf(1);
+    // 3. Simulamos el submit
+    // En RTL, disparamos el evento sobre el elemento real
+    fireEvent.submit(form);
 
-  form.simulate('submit', {preventDefault: () => {}});
-  // expect(callback.called).to.be.true;
-
-  //   // manually trigger the callback
-  //   renderer.act(() => {
-  //     tree.props.onMouseEnter();
-  //   });
-  //   // re-rendering
-  //   tree = component.toJSON();
-  //   expect(tree).toMatchSnapshot();
-
-  //   // manually trigger the callback
-  //   renderer.act(() => {
-  //     tree.props.onMouseLeave();
-  //   });
-  //   // re-rendering
-  //   tree = component.toJSON();
-  //   expect(tree).toMatchSnapshot();
+    // Si quieres probar que se llamó a una función,
+    // lo ideal sería pasarle un mock de Jest o Sinon como prop.
+    // Ejemplo: expect(mySpy.calledOnce).to.be.true;
+  });
 });

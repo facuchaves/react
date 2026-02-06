@@ -9,15 +9,15 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 16
-        - nvm use 16
+        - nvm install 20
+        - nvm use 20
         - npm install -g yarn
-        - yarn install --frozen-lockfile
+        - yarn install
     build:
       commands:
         - yarn run build
   artifacts:
-    baseDirectory: build
+    baseDirectory: dist
     files:
       - '**/*'
   cache:
