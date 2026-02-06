@@ -20,6 +20,8 @@ vi.mock('../../hooks/reactReduxHooks', () => ({
   useEntityDispatch: () => (_value: any) => {},
 }));
 
+const mockedCreateEntity = vi.mocked(createEntity);
+
 const tick = () =>
   new Promise((resolve) => {
     setTimeout(resolve, 0);
@@ -45,7 +47,7 @@ test('Should close', () => {
 test('Should call success', async () => {
   const handleSuccess = vi.fn();
   const OK_RESPONSE = {statusCode: 200};
-  (createEntity as vi.Mock).mockReturnValue(Promise.resolve(OK_RESPONSE));
+  mockedCreateEntity.mockResolvedValue(OK_RESPONSE as any);
 
   act(() => {
     render(<AddEntityForm onSuccess={handleSuccess} onClose={() => {}} />);
@@ -70,7 +72,7 @@ test.skip('Should show error 400', async () => {
     message: ['an error message'],
     error: 'Bad Request',
   };
-  (createEntity as vi.Mock).mockReturnValue(Promise.resolve(ERROR_400));
+  mockedCreateEntity.mockResolvedValue(ERROR_400 as any);
 
   act(() => {
     render(<AddEntityForm onClose={() => {}} onSuccess={() => {}} />);
@@ -97,7 +99,7 @@ test.skip('Should show generic error 500', async () => {
   const ERROR_500 = {
     statusCode: 500,
   };
-  (createEntity as vi.Mock).mockReturnValue(Promise.resolve(ERROR_500));
+  mockedCreateEntity.mockResolvedValue(ERROR_500 as any);
 
   act(() => {
     render(<AddEntityForm onClose={() => {}} onSuccess={() => {}} />);
