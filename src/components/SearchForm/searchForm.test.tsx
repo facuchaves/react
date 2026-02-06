@@ -1,6 +1,5 @@
 import React from 'react';
 import {render, screen, fireEvent} from '@testing-library/react';
-import {expect} from 'chai';
 import '@testing-library/jest-dom'; // Importante para que Jest entienda los matchers
 import SearchForm from './index';
 
